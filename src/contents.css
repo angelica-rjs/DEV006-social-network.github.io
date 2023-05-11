@@ -12,11 +12,35 @@
   display: flex;
   flex: wrap;
   margin: auto;
-  height: 18%;
-  width: 90%;
-  margin-top: 15%;
+  height: 13%;
+  width: 80%;
+  margin-top: 10%;
+}
 
+.imagenBienvenida {
+  display: flex;
+  margin: auto;
+  width: 80%;
+  height: 40%;
+}
 
+.h1Bienvenida {
+  margin: auto;
+  width: 50%;
+  height: 5%;
+}
 
+.h1Bienvenida h1 {
+  text-align: center;
+}
 
+.parrafoBienvenida {
+  margin: auto;
+  width: 50%;
+  height: 5%;
+  margin-top: 5%;
+}
+
+.parrafoBienvenida p {
+  text-align: center;
 }
