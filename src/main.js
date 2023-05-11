@@ -2,9 +2,19 @@
 import { logoKetoLife } from './contents.js';
 
 const contenedorUniversal = document.getElementById('contenedorUniversal');
-const contenedorLogoKetoLife = document.createElement('div');
-contenedorLogoKetoLife.innerHTML = logoKetoLife;
-contenedorUniversal.appendChild(contenedorLogoKetoLife);
 
+function mostrarLogo() {
+  const contenedorLogoKetoLife = document.createElement('div');
+  contenedorLogoKetoLife.innerHTML = logoKetoLife;
+  contenedorLogoKetoLife.setAttribute('class', 'logoketolife');
+  contenedorUniversal.appendChild(contenedorLogoKetoLife);
+}
+
+// Vista1-frame16
+function vista1() {
+  mostrarLogo();
+}
+vista1();
+// contenedorUniversal.innerHTML = `${mostrarLogo}`;
 // import { myFunction } from './lib/index.js';
 // *myFunction();
