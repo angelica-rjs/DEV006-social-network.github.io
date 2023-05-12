@@ -11,6 +11,7 @@ function mostrarLogo() {
   contenedorUniversal.appendChild(contenedorLogoKetoLife);
 }
 
+
 // Vista1-frame16
 function vista1() {
   mostrarLogo();
