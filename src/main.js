@@ -14,6 +14,30 @@ function mostrarLogo() {
   contenedorLogoKetoLife.setAttribute('class', 'logoketolife');
   contenedorUniversal.appendChild(contenedorLogoKetoLife);
 }
+// Vista 4-frame17.1
+function vista4(){
+  mostrarLogo();
+  // Parrafo Felicidades
+  const congratulation = document.createElement('div');
+  congratulation.classList = 'congratulation';
+  congratulation.innerHTML = '<h1> ¡Felicidades! </h1>';
+  contenedorUniversal.appendChild(congratulation);
+ // Parrafo descrpción bienvenida
+ const welcome = document.createElement('div');
+ welcome.classList = 'welcome';
+ welcome.innerHTML =  ` <p> Ahora ya eres parte de nuestra comunidad keto, podras compartir y encontrar nuevas recetas.<br><br>Recuerda interactuar con los demas ketoAmigos. </p> `;
+ contenedorUniversal.appendChild(welcome);
+ const imgLike = document.createElement('div');
+ imgLike.classList = 'imgLike';
+ imgLike.innerHTML = '<img src="imagenes/likePublica.png">';
+ contenedorUniversal.appendChild(imgLike);
+ // Botón comenzar
+ const buttonComenzar = document.createElement('div');
+buttonComenzar.classList = 'divBotonVista4';
+buttonComenzar.innerHTML = '<button class="botonesIniciales" type="button">COMENZAR</button>'
+contenedorUniversal.appendChild(buttonComenzar);
+}
+
 
 // Vista2-frame17
 function vista2() {
@@ -33,6 +57,29 @@ function vista2() {
   botonRegistro.classList = 'divBotonVista2';
   botonRegistro.innerHTML = botonRegistrarse;
   contenedorUniversal.appendChild(botonRegistro);
+  // letra o
+  const letraO = document.createElement('div');
+  letraO.classList = 'letraO';
+  letraO.innerHTML = '<p> O </p>';
+  contenedorUniversal.appendChild(letraO);
+  botonRegistro.addEventListener('click', () => {
+    limpiarContenedorUniversal();
+    vista4();
+  })
+}
+// Vista3-frame18
+function vista3(){
+  mostrarLogo();
+  const formularioVista3 = document.createElement('form');
+  formularioVista3.classList = 'form'
+ formularioVista3.innerHTML = ` <input class="inputFormSesion" type="mail" placeholder="CORREO ELECTRONICO"><small class="smallSesion"></small>
+  <input class="inputFormSesion" type="password" placeholder="CONTRASEÑA"><small class="smallSesion"></small>`;
+  contenedorUniversal.appendChild(formularioVista3);
+ // Boton Iniciar sesión
+ const botonIniciar = document.createElement('div');
+  botonIniciar.classList = 'divBotonVista2';
+  botonIniciar.innerHTML = botonIniciarSesion;
+  contenedorUniversal.appendChild(botonIniciar);
   // letra o
   const letraO = document.createElement('div');
   letraO.classList = 'letraO';
@@ -79,10 +126,14 @@ function vista1() {
   parrafocondiciones2.innerHTML = '<a href="#"> Politicas de ususario </a>';
   contenedorUniversal.appendChild(parrafocondiciones2);
   // addEventListener-iniciarsesion-vista2-frame17
-  botonIniciar.addEventListener('click', () => {
+  botonRegistro.addEventListener('click', () => {
     limpiarContenedorUniversal();
     vista2();
   });
+  botonIniciar.addEventListener('click', () => {
+    limpiarContenedorUniversal();
+    vista3();
+  })
 }
 vista1();
 
