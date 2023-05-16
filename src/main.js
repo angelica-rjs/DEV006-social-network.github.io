@@ -1,5 +1,6 @@
 // Este es el punto de entrada de tu aplicacion
-import { logoKetoLife, botonIniciarSesion, botonRegistrarse } from './contents.js';
+import { logoKetoLife, botonIniciarSesion, botonRegistrarse, } from './contents.js';
+import { registrar } from './controlador.js';
 
 const contenedorUniversal = document.getElementById('contenedorUniversal');
 
@@ -46,10 +47,10 @@ function vista2() {
   // Formulario
   const formularioVista2 = document.createElement('form');
   formularioVista2.classList = 'form';
-  formularioVista2.innerHTML = ` <input class="inputFormulario" type="mail" placeholder="CORREO ELECTRONICO"><small></small>
-  <input class="inputFormulario" type="text" placeholder="NOMBRE DE USARIO"><small></small>
-  <input class="inputFormulario" type="password" placeholder="CONTRASEÑA"><small>Especificación de contraseña</small>
-  <input class="inputFormulario" type="password" placeholder="CONFIRMAR CONTRASEÑA"><small>Especificación de contraseña</small>`;
+  formularioVista2.innerHTML = ` <input class="inputFormulario" id="emailRegistro" type="mail" placeholder="CORREO ELECTRONICO"><small></small>
+  <input class="inputFormulario" id="nameRegistro" type="text" placeholder="NOMBRE DE USARIO"><small></small>
+  <input class="inputFormulario" id="passwordRegistro" type="password" placeholder="CONTRASEÑA"><small>Especificación de contraseña</small>
+  <input class="inputFormulario" id="passwordRegistroC" type="password" placeholder="CONFIRMAR CONTRASEÑA"><small>Especificación de contraseña</small>`;
   contenedorUniversal.appendChild(formularioVista2);
   // Boton registro
   const botonRegistro = document.createElement('div');
@@ -61,7 +62,13 @@ function vista2() {
   letraO.classList = 'letraO';
   letraO.innerHTML = '<p> O </p>';
   contenedorUniversal.appendChild(letraO);
+
   botonRegistro.addEventListener('click', () => {
+  const emailRegistro = document.getElementById('emailRegistro').value;
+  const nameRegistro = document.getElementById('nameRegistro').value;
+  const passwordRegistro = document.getElementById('passwordRegistro').value;
+  const passwordRegistroC = document.getElementById('passwordRegistroC').value;
+   registrar(emailRegistro, passwordRegistro);
     limpiarContenedorUniversal();
     vista4();
   })
@@ -71,21 +78,32 @@ function vista3(){
   mostrarLogo();
   const formularioVista3 = document.createElement('form');
   formularioVista3.classList = 'form'
- formularioVista3.innerHTML = ` <input class="inputFormSesion" type="mail" placeholder="CORREO ELECTRONICO"><small class="smallSesion"></small>
-  <input class="inputFormSesion" type="password" placeholder="CONTRASEÑA"><small class="smallSesion"></small>`;
+ formularioVista3.innerHTML = ` <input class="inputFormSesion" id="emailSesion" type="mail" placeholder="CORREO ELECTRONICO"><small class="smallSesion"></small>
+  <input class="inputFormSesion" id="paswordSesion" type="password" placeholder="CONTRASEÑA"><small class="smallSesion"></small>`;
   contenedorUniversal.appendChild(formularioVista3);
  // Boton Iniciar sesión
- const botonIniciar = document.createElement('div');
+  const botonIniciar = document.createElement('div');
   botonIniciar.classList = 'divBotonVista2';
   botonIniciar.innerHTML = botonIniciarSesion;
   contenedorUniversal.appendChild(botonIniciar);
+  
+ 
+
   // letra o
   const letraO = document.createElement('div');
   letraO.classList = 'letraO';
   letraO.innerHTML = '<p> O </p>';
   contenedorUniversal.appendChild(letraO);
-}
 
+    botonIniciar.addEventListener('click', () => {
+      const email = document.getElementById('emailSesion').value;
+      const password = document.getElementById('paswordSesion').value;
+     iniciar(email, password);
+     console.log(email);
+     console.log(password);
+    })
+ }  
+ 
 // Vista1-frame16
 function vista1() {
   mostrarLogo();
