@@ -1,17 +1,15 @@
-   // Import the functions you need from the SDKs you need
-  
 /*----------------IMPORT DE FUNCIONES NUESTRAS---------------------------------------*/ 
 
 // Este es el punto de entrada de tu aplicacion
 import { logoKetoLife, botonIniciarSesion, botonRegistrarse, } from './contents.js';
-import { registrar } from './controlador.js';
+import { registrar, iniciar } from './controlador.js';
 
 
 const contenedorUniversal = document.getElementById('contenedorUniversal');
 
 /*-------------------------------LIMPIAR EL CONTENEDOR---------------------------------------------------------------------*/
 
-function limpiarContenedorUniversal() {
+export function limpiarContenedorUniversal() {
   contenedorUniversal.innerHTML = '';
 }
 
@@ -23,9 +21,9 @@ function mostrarLogo() {
   contenedorUniversal.appendChild(contenedorLogoKetoLife);
 }
 
-/*------------------------------VISTA 4 - FRAME17.1---------------------------------------------------------------------*/
+/*------------------------------VISTA 4 - FRAME17.1 FELICIDADES---------------------------------------------------------------------*/
 
-function vista4(){
+export function vista4(){
   mostrarLogo();
   // Parrafo Felicidades
   const congratulation = document.createElement('div');
@@ -48,7 +46,7 @@ function vista4(){
   contenedorUniversal.appendChild(buttonComenzar);
 }
 
-/*------------------------------VISTA 2 - FRAME 17---------------------------------------------------------------------*/
+/*------------------------------ REGISTRO VISTA 2 - FRAME 17---------------------------------------------------------------------*/
 
 function vista2() {
   // Ejecutar funcion limpiar contenedor universal
@@ -78,12 +76,15 @@ function vista2() {
     const passwordRegistro = document.getElementById('passwordRegistro').value;
     const passwordRegistroC = document.getElementById('passwordRegistroC').value;
     registrar(emailRegistro, passwordRegistro);
-    //limpiarContenedorUniversal();
-    //vista4();
+
+    console.log ("este es el mail: "+ emailRegistro)
+    console.log ("este es el name: "+ nameRegistro)
+    console.log ("este es la contraseña: "+ passwordRegistro)
+    console.log ("este es la confirmacion contraseña: "+ passwordRegistroC)
   });
 }
 
-/*------------------------------VISTA 3 - FRAME18---------------------------------------------------------------------*/
+/*------------------------------INICIO SESION VISTA 3 - FRAME18---------------------------------------------------------------------*/
 
 function vista3(){
   mostrarLogo();

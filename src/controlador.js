@@ -1,60 +1,43 @@
-//nuestra 
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "./firebase";
+import { limpiarContenedorUniversal, vista4 } from "./main" 
 
-//importe de fireBase 
-import { initializeApp } from "firebase/app";
-//import { getAuth } from "firebase/auth";
-
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://firebase.google.com/docs/web/learn-more#config-object
-const firebaseConfig = {
-  // ...
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-
-// Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth(app);
-
-
-
-
-
-/*------------------------------------------FUNCION REGISTRAR------------------------------------*/
-export function registrar(emailRegistro, passwordRegistro){
-    firebase.auth().createUserWithEmailAndPassword(emailRegistro, passwordRegistro)
-    .then((userCredential) => {
-      // Signed in
-      var user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ..
-    });
-}
-
-
-
-/*import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-export function iniciar(email, password){
- 
-    const auth = getAuth();
-signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in
+export function registrar(email, password ){
+  console.log("entramos a la funcion")
+  const auth = getAuth(app);
+  createUserWithEmailAndPassword(auth, email, password)
+   .then((userCredential) => {
+    console.log("estamos en registro")
     const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
+    limpiarContenedorUniversal();
+    vista4();
+  
+    })   
+
+    .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
   });
 
-}*/
+}
+
+export function iniciar(email, password){
+  console.log("estamos en la funcion iniciar")
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+      // Signed in
+      console.log("pasamos el login")
+      const user = userCredential.user;
+      
+      // ...
+      })
+      .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      });
+
+}
 
 
 
