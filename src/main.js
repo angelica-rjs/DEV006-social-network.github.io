@@ -1,8 +1,8 @@
 /*----------------IMPORT DE FUNCIONES NUESTRAS---------------------------------------*/ 
 
 // Este es el punto de entrada de tu aplicacion
-import { logoKetoLife, botonIniciarSesion, botonRegistrarse, } from './contents.js';
-import { registrar, iniciar } from './controlador.js';
+import { logoKetoLife, botonIniciarSesion, botonRegistrarse, buttonGoogle } from './contents.js';
+import { registrar, iniciar, registroGoogle, loginGoogle } from './controlador.js';
 
 
 const contenedorUniversal = document.getElementById('contenedorUniversal');
@@ -21,7 +21,7 @@ function mostrarLogo() {
   contenedorUniversal.appendChild(contenedorLogoKetoLife);
 }
 
-/*------------------------------VISTA 4 - FRAME17.1 FELICIDADES---------------------------------------------------------------------*/
+/*------------------------------FUNCION VISTA 4 - FRAME17.1 FELICIDADES---------------------------------------------------------------------*/
 
 export function vista4(){
   mostrarLogo();
@@ -46,7 +46,7 @@ export function vista4(){
   contenedorUniversal.appendChild(buttonComenzar);
 }
 
-/*------------------------------ REGISTRO VISTA 2 - FRAME 17---------------------------------------------------------------------*/
+/*------------------------------ REGISTRO FUNCION VISTA 2 - FRAME 17---------------------------------------------------------------------*/
 
 function vista2() {
   // Ejecutar funcion limpiar contenedor universal
@@ -57,8 +57,7 @@ function vista2() {
   formularioVista2.classList = 'form';
   formularioVista2.innerHTML = ` <input class="inputFormulario" id="emailRegistro" type="mail" placeholder="CORREO ELECTRONICO"><small></small>
   <input class="inputFormulario" id="nameRegistro" type="text" placeholder="NOMBRE DE USARIO"><small></small>
-  <input class="inputFormulario" id="passwordRegistro" type="password" placeholder="CONTRASEÑA"><small>Especificación de contraseña</small>
-  <input class="inputFormulario" id="passwordRegistroC" type="password" placeholder="CONFIRMAR CONTRASEÑA"><small>Especificación de contraseña</small>`;
+  <input class="inputFormulario" id="passwordRegistro" type="password" placeholder="CONTRASEÑA"><small>Especificación de contraseña</small>`;
   contenedorUniversal.appendChild(formularioVista2);
   // Boton registro
   const botonRegistro = document.createElement('div');
@@ -70,21 +69,30 @@ function vista2() {
   letraO.classList = 'letraO';
   letraO.innerHTML = '<p> O </p>';
   contenedorUniversal.appendChild(letraO);
+  //boton de google
+  const botonGoogle = document.createElement('div');
+  botonGoogle.classList = 'divBotonGoogle';
+  botonGoogle.innerHTML = buttonGoogle;
+  contenedorUniversal.appendChild(botonGoogle);
+
+//addEventLitener de boton resgistro
   botonRegistro.addEventListener('click', () => {
     const emailRegistro = document.getElementById('emailRegistro').value;
     const nameRegistro = document.getElementById('nameRegistro').value;
     const passwordRegistro = document.getElementById('passwordRegistro').value;
-    const passwordRegistroC = document.getElementById('passwordRegistroC').value;
     registrar(emailRegistro, passwordRegistro);
-
-    console.log ("este es el mail: "+ emailRegistro)
-    console.log ("este es el name: "+ nameRegistro)
-    console.log ("este es la contraseña: "+ passwordRegistro)
-    console.log ("este es la confirmacion contraseña: "+ passwordRegistroC)
+    //console.log ("este es el mail: "+ emailRegistro)
+    //console.log ("este es el name: "+ nameRegistro)
+    //console.log ("este es la contraseña: "+ passwordRegistro)
   });
+
+  //addEventLitener de boton google
+  botonGoogle.addEventListener("click", () => {
+    registroGoogle();
+  })
 }
 
-/*------------------------------INICIO SESION VISTA 3 - FRAME18---------------------------------------------------------------------*/
+/*------------------------------INICIO SESION FUNCION VISTA 3 - FRAME18---------------------------------------------------------------------*/
 
 function vista3(){
   mostrarLogo();
@@ -103,6 +111,12 @@ function vista3(){
   letraO.classList = 'letraO';
   letraO.innerHTML = '<p> O </p>';
   contenedorUniversal.appendChild(letraO);
+  //boton de google
+  const botonGoogle = document.createElement('div');
+  botonGoogle.classList = 'divBotonGoogle';
+  botonGoogle.innerHTML = buttonGoogle;
+  contenedorUniversal.appendChild(botonGoogle);
+
   botonIniciar.addEventListener('click', () => {
       const email = document.getElementById('emailSesion').value;
       const password = document.getElementById('paswordSesion').value;
@@ -110,9 +124,14 @@ function vista3(){
       console.log(email);
       console.log(password);
     })
+
+  //addEventLitener de boton google
+  botonGoogle.addEventListener("click", () => {
+    loginGoogle();
+  })
  }  
  
- /*------------------------------VISTA 1 - FRAME 16---------------------------------------------------------------------*/
+ /*------------------------------PANTALLA INICIAL FUNCION VISTA 1 - FRAME 16---------------------------------------------------------------------*/
 
 function vista1() {
   mostrarLogo();
