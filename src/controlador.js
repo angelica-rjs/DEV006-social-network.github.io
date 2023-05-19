@@ -1,27 +1,17 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "./firebase";
-import { limpiarContenedorUniversal, vista4 } from "./main" 
+//import { limpiarContenedorUniversal, vista4 } from "./main" 
 
 
 //registrarse con correo y contraseña
 export function registrar(email, password ){
-  console.log("entramos a la funcion")
   const auth = getAuth(app);
-  createUserWithEmailAndPassword(auth, email, password)
-   .then((userCredential) => {
-    console.log("estamos en registro")
-    const user = userCredential.user;
-    limpiarContenedorUniversal();
-    vista4();
-  
-    })   
-
-    .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-  });
-
+ return createUserWithEmailAndPassword(auth, email, password)
+   
 }
+
+
+
 
 // inicio de sesion con correo y contraseña
 export function iniciar(email, password){
@@ -57,8 +47,8 @@ export function registroGoogle(){
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
       // ...
-      limpiarContenedorUniversal();
-      vista4();
+      //limpiarContenedorUniversal();
+      //vista4();
      })
     .catch((error) => {
       // Handle Errors here.
