@@ -26,4 +26,4 @@ export function welcome(navigateTo){
     return welcome
   }
   
-  export default welcome;
+  //export default welcome;

@@ -1,7 +1,8 @@
 import { mostrarLogo, limpiarContenedorUniversal, botonIniciarSesion, botonRegistrarse } from "./contents";
-import singUp from "./singUp";
+import {singUp} from "./singUp";
+import { login } from "./login";
 
-function landing(navigateTo) {
+ export function landing(navigateTo) {
   //se crea el div padre 
   const landing = document.createElement('div')
   //se inserta el logo
@@ -61,4 +62,4 @@ function landing(navigateTo) {
   return landing
   }
 
-export default landing;
+//export default landing;

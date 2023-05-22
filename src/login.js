@@ -1,7 +1,7 @@
 import { mostrarLogo, buttonGoogle, botonIniciarSesion} from "./contents";
 import { iniciar, loginGoogle } from "./lib/controlador";
 
-function login(navigateTo){
+export function login(navigateTo){
     mostrarLogo();
     const login = document.createElement('div')
 
@@ -42,4 +42,4 @@ function login(navigateTo){
     return login;
    }  
 
-export default login;
+//export default login;
