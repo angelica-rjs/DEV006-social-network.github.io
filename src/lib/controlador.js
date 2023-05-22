@@ -1,17 +1,22 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "./firebase";
-//import { limpiarContenedorUniversal, vista4 } from "./main" 
 
 
 //registrarse con correo y contraseña
 export function registrar(email, password ){
-  const auth = getAuth(app);
- return createUserWithEmailAndPassword(auth, email, password)
-   
+    const auth = getAuth(app);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..a
+      });
 }
-
-
-
 
 // inicio de sesion con correo y contraseña
 export function iniciar(email, password){
@@ -30,9 +35,7 @@ export function iniciar(email, password){
       const errorMessage = error.message;
       alert("su correo no esta registrado")
       });
-
 }
-
 
 // registrarse con google 
 export function registroGoogle(){
@@ -61,7 +64,6 @@ export function registroGoogle(){
       // ...
     });
 }
-
 
 //iniciar sesion con google
 export function loginGoogle(){
