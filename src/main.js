@@ -1,11 +1,11 @@
 /*import { myFunction } from './lib/index.js';
  *myFunction();*/
 
-import landing from "./landing";
-import singUp from "./singUp";
-import welcome from "./welcome";
-import login from "./login";
-import error from "./error";
+import {landing} from "./landing";
+import {singUp} from "./singUp";
+import {welcome} from "./welcome";
+import {login} from "./login";
+import {error} from "./error";
 
 const routes = [
   { path: '/', component: landing },
@@ -43,36 +43,14 @@ function navigateTo(hash) {
       //window.location.origin  devuelve el origen de la URL actual y route.path, es la ruta encontrada en el objeto ambas se concatenan y se crea la url
       window.location.origin + route.path,
     );
-/* este if lo que hace es que si nuestro contenedor universal tiene un hijo, o sea, si tiene contenido en el lo elimina
-utilizando el removeChild para que se pueda acceder a la nueva url (CON  ESTO ME QUEDA LA DUDA DE SI ES NECESARIO TENER LA 
-  FUNCION PARA LIMPIAR EL CONTENEDOR (CREO QUE NO ))*/
+
     if (contenedor.firstChild) {
       contenedor.removeChild(contenedor.firstChild);
     }
     
-
-// Aqui se agrega el componente asociado a la ruta actual al contenedor o sea a la vista que el usuario quiere entrar 
-//se llama la funcion en la que se llama el componente 
-//appendChild toma como argumento el nodo que se desea agregar al contenedor
-  
-//contenedor.appendChild(route.component(navigateTo));
-  
-
-//guarde el componente en una variable 
-const componenteNodo = route.component(navigateTo);
-
-//verifico si route.component(navigateTo) es un nodo desde esa propiedad
-    if (componenteNodo instanceof Node) {
-      contenedor.appendChild(componenteNodo);
-      //si no es un nodo me da este mensaje de error 
-    } else {
-      console.error('El componente no es un nodo DOM ');
-    }
-
-   }
-   // si no se encuentra la ruta asociada en el primer if se ejecuta el esle . 
-   // navigateTo llama a la ruta de error para mostrarla 
-   else {
+    contenedor.appendChild(route.component(navigateTo));
+    //contenedor.appendChild(route.component[0](navigateTo))
+   } else {
     navigateTo('/error');
   }
 }
@@ -84,8 +62,6 @@ window.onpopstate = () => {
   navigateTo(window.location.pathname);
 };
 
-// aqui se establece la ruta predefinica , si pathname tiene una ruta es esa la que se muestra 
-//si no tiene una ruta establecida la que se muestra por defecto es defaultRoute (que la declaramos anteriormente)
 navigateTo(window.location.pathname || defaultRoute);
 
 
