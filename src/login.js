@@ -1,5 +1,5 @@
 import { mostrarLogo, buttonGoogle, botonIniciarSesion} from "./contents";
-import { iniciar, loginGoogle } from "./lib/firebasee";
+import { iniciar, loginGoogle } from "./lib/controlador";
 
 function login(navigateTo){
     mostrarLogo();

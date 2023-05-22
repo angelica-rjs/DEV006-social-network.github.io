@@ -1,5 +1,5 @@
 import { mostrarLogo, botonRegistrarse, buttonGoogle } from "./contents";
-import { registrar, registroGoogle } from "./lib/firebasee"
+import { registrar, registroGoogle } from "./lib/controlador"
 //import welcome from "./welcome";
 
  function singUp(navigateTo) {
