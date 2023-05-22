@@ -1,6 +1,6 @@
 import { mostrarLogo, botonRegistrarse, buttonGoogle } from "./contents";
 import { registrar, registroGoogle } from "./lib/controlador"
-//import welcome from "./welcome";
+import {welcome} from "./welcome";
 
  function singUp(navigateTo) {
 
@@ -35,6 +35,7 @@ import { registrar, registroGoogle } from "./lib/controlador"
       const nameRegistro = document.getElementById('nameRegistro').value;
       const passwordRegistro = document.getElementById('passwordRegistro').value;
       registrar(emailRegistro, passwordRegistro)
+      welcome();
     })
   
     //addEventLitener de boton google
