@@ -2,7 +2,7 @@ import { mostrarLogo, botonRegistrarse, buttonGoogle } from "./contents";
 import { registrar, registroGoogle } from "./lib/controlador"
 import {welcome} from "./welcome";
 
- function singUp(navigateTo) {
+ export function singUp(navigateTo) {
 
     const singUp = document.createElement('div')
     mostrarLogo();
@@ -46,5 +46,5 @@ import {welcome} from "./welcome";
     return singUp
   }
 
-  export default singUp;
+  //export default singUp;
   
