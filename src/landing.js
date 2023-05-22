@@ -47,7 +47,7 @@ function landing(navigateTo) {
 
   // addEventListener-iniciarsesion-vista2-frame17
      botonRegistro.addEventListener('click', () => {
-      navigateTo('/singUp');
+      navigateTo('/nsigUp');
       singUp();
       
      

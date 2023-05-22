@@ -39,7 +39,7 @@ function navigateTo(hash) {
       {},
       //ruta encontrada y se muestra en el navegador. ej: /login
       route.path,
-      //url completa 
+      //url completa  ketolife/login
       //window.location.origin  devuelve el origen de la URL actual y route.path, es la ruta encontrada en el objeto ambas se concatenan y se crea la url
       window.location.origin + route.path,
     );
@@ -66,10 +66,12 @@ const componenteNodo = route.component(navigateTo);
       contenedor.appendChild(componenteNodo);
       //si no es un nodo me da este mensaje de error 
     } else {
-      console.error('El componente no es un nodo DOM ');
+      console.log('El componente no es un nodo DOM ');
     }
 
    }
+
+   
    // si no se encuentra la ruta asociada en el primer if se ejecuta el esle . 
    // navigateTo llama a la ruta de error para mostrarla 
    else {
