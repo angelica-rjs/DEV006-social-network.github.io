@@ -49,7 +49,6 @@ function navigateTo(hash) {
     }
     
     contenedor.appendChild(route.component(navigateTo));
-    //contenedor.appendChild(route.component[0](navigateTo))
    } else {
     navigateTo('/error');
   }
