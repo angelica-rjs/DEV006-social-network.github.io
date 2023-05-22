@@ -4,7 +4,7 @@ import { app } from "./firebase";
 
 //registrarse con correo y contraseña
 export function registrar(email, password ){
-    const auth = getAuth();
+    const auth = getAuth(app);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
@@ -14,7 +14,7 @@ export function registrar(email, password ){
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
+        // ..a
       });
 }
 
