@@ -48,6 +48,7 @@ import { login } from "./login";
 
   // addEventListener-iniciarsesion-vista2-frame17
      botonRegistro.addEventListener('click', () => {
+      limpiarContenedorUniversal();
       navigateTo('/singUp');
       singUp();
       

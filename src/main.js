@@ -6,6 +6,8 @@ import {singUp} from "./singUp";
 import {welcome} from "./welcome";
 import {login} from "./login";
 import {error} from "./error";
+// importacion de firebase
+import { getAuth } from "firebase/auth";
 
 const routes = [
   { path: '/', component: landing },
@@ -21,6 +23,8 @@ const routes = [
 //Ruta que queda por defectp (aca se define  que siempre se abre en landing )
 const defaultRoute = '/';
 const contenedor = document.getElementById('contenedorUniversal');
+const auth = getAuth();
+const user = auth.currentUser;
 
 
 function navigateTo(hash) {
@@ -47,11 +51,17 @@ function navigateTo(hash) {
     if (contenedor.firstChild) {
       contenedor.removeChild(contenedor.firstChild);
     }
-    
+     
     contenedor.appendChild(route.component(navigateTo));
-    //contenedor.appendChild(route.component[0](navigateTo))
-   } else {
+    
+   } 
+   else {
     navigateTo('/error');
+  }
+  if (user !== null ){
+    const nodoWelcome = welcome(navigateTo)
+    contenedor.appendChild(nodoWelcome);
+    
   }
 }
 

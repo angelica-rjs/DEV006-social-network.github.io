@@ -5,18 +5,21 @@ import { app } from "./firebase";
 //registrarse con correo y contraseña
 export function registrar(email, password ){
     const auth = getAuth(app);
+    console.log("antes del .then" + auth.currentUser);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        console.log("despues del .then" + auth.currentUser);
         // Signed in
         const user = userCredential.user;
+        
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         // ..a
-      });
-}
+      }); return auth;
+} 
 
 // inicio de sesion con correo y contraseña
 export function iniciar(email, password){
