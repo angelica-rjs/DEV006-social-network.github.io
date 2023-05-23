@@ -3,11 +3,11 @@ import { app } from "./firebase";
 
 
 //registrarse con correo y contraseña
-export async function registrar(email, password ){
-    const auth = getAuth(app);
-    console.log("antes del .then" + auth.currentUser);
-    const result = createUserWithEmailAndPassword(auth, email, password);
-    try {
+export async function registrar(email, password) {
+  const auth = getAuth(app);
+  console.log("antes del .then" + auth.currentUser);
+  const result = createUserWithEmailAndPassword(auth, email, password);
+  try {
     const userCredential = await result;
     console.log("despues del .then" + auth.currentUser);
     // Signed in
@@ -21,29 +21,30 @@ export async function registrar(email, password ){
     console.log(errorMessage, "errorMessage");
     throw errorMessage;
   }
-} 
+}
 
 // inicio de sesion con correo y contraseña
-export function iniciar(email, password){
+export function iniciar(email, password) {
   console.log("estamos en la funcion iniciar")
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+  const auth = getAuth();
+  const result = signInWithEmailAndPassword(auth, email, password)
+  return result.then((userCredential) => {
       // Signed in
       console.log("pasamos el login- then")
       const user = userCredential.user;
       console.log(user, "user");
-      })
-      .catch((error) => {
+      return user
+    }).catch((error) => {
       const errorCode = error.code;
       console.log(errorCode, "errorCode");
       const errorMessage = error.message;
       console.log(errorMessage, "errorMessage");
-      });
+      return errorMessage
+    });
 }
 
 // registrarse con google 
-export function registroGoogle(){
+export function registroGoogle() {
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   signInWithPopup(auth, provider)
@@ -53,11 +54,8 @@ export function registroGoogle(){
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-      //limpiarContenedorUniversal();
-      //vista4();
-     })
+      
+    })
     .catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -71,7 +69,7 @@ export function registroGoogle(){
 }
 
 //iniciar sesion con google
-export function loginGoogle(){
+export function loginGoogle() {
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   signInWithPopup(auth, provider)
@@ -83,7 +81,7 @@ export function loginGoogle(){
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
       // ...
-     })
+    })
     .catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;

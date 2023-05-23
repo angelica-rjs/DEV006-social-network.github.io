@@ -32,9 +32,16 @@ export function login(navigateTo){
     botonIniciar.addEventListener('click', () => {
         const email = document.getElementById('emailSesion').value;
         const password = document.getElementById('paswordSesion').value;
-        iniciar(email, password);
-        console.log(email);
-        console.log(password);
+        iniciar(email, password).then(function (user){
+          console.log(user, "login")
+          if (user !== null ){
+            console.log("estamos en if")
+            navigateTo('/welcome')
+          }
+        }).catch(function(errorMessage){
+          console.log(errorMessage, "login")
+          alert("usuario no registrado")
+          })
       })
   
     //addEventLitener de boton google
