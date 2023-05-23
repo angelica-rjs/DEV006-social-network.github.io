@@ -16,7 +16,7 @@ export function limpiarContenedorUniversal() {
     const contenedorLogoKetoLife = document.createElement('div');
     contenedorLogoKetoLife.innerHTML = logoKetoLife;
     contenedorLogoKetoLife.setAttribute('class', 'logoketolife');
-    contenedorUniversal.appendChild(contenedorLogoKetoLife);
+    return contenedorLogoKetoLife
   }
  
   

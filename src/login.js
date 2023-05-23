@@ -2,8 +2,10 @@ import { mostrarLogo, buttonGoogle, botonIniciarSesion} from "./contents";
 import { iniciar, loginGoogle } from "./lib/controlador";
 
 export function login(navigateTo){
-    mostrarLogo();
+    
     const login = document.createElement('div')
+    const logo = mostrarLogo();
+    login.appendChild(logo);
 
     const formularioVista3 = document.createElement('form');
     formularioVista3.classList = 'form'

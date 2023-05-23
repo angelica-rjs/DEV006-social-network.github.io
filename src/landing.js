@@ -6,7 +6,8 @@ import { login } from "./login";
   //se crea el div padre 
   const landing = document.createElement('div')
   //se inserta el logo
-  mostrarLogo();
+  const logo = mostrarLogo();
+  landing.appendChild(logo);
 
   //imagen de bienvenida
   const imagenBienvenida = document.createElement('div');

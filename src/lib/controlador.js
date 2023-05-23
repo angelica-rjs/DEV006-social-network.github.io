@@ -3,22 +3,24 @@ import { app } from "./firebase";
 
 
 //registrarse con correo y contraseña
-export function registrar(email, password ){
+export async function registrar(email, password ){
     const auth = getAuth(app);
     console.log("antes del .then" + auth.currentUser);
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("despues del .then" + auth.currentUser);
-        // Signed in
-        const user = userCredential.user;
-        
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..a
-      }); return auth;
+    const result = createUserWithEmailAndPassword(auth, email, password);
+    try {
+    const userCredential = await result;
+    console.log("despues del .then" + auth.currentUser);
+    // Signed in
+    const user = userCredential.user;
+    console.log(user, "user controlador");
+    return user;
+  } catch (error) {
+    const errorCode = error.code;
+    console.log(errorCode, "errorCode");
+    const errorMessage = error.message;
+    console.log(errorMessage, "errorMessage");
+    throw errorMessage;
+  }
 } 
 
 // inicio de sesion con correo y contraseña
@@ -28,15 +30,15 @@ export function iniciar(email, password){
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
       // Signed in
-      console.log("pasamos el login")
+      console.log("pasamos el login- then")
       const user = userCredential.user;
-      
-      // ...
+      console.log(user, "user");
       })
       .catch((error) => {
       const errorCode = error.code;
+      console.log(errorCode, "errorCode");
       const errorMessage = error.message;
-      alert("su correo no esta registrado")
+      console.log(errorMessage, "errorMessage");
       });
 }
 
