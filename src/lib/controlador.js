@@ -24,23 +24,25 @@ export async function registrar(email, password ){
 } 
 
 // inicio de sesion con correo y contraseña
-export function iniciar(email, password){
-  console.log("estamos en la funcion iniciar")
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-      // Signed in
-      console.log("pasamos el login- then")
-      const user = userCredential.user;
-      console.log(user, "user");
-      })
-      .catch((error) => {
-      const errorCode = error.code;
-      console.log(errorCode, "errorCode");
-      const errorMessage = error.message;
-      console.log(errorMessage, "errorMessage");
-      });
+export async function iniciar(email, password) {
+  console.log('estamos en la funcion iniciar');
+  const auth = getAuth(app);
+  const resultiniciar = signInWithEmailAndPassword(auth, email, password);
+  try {
+    const userCredential = await resultiniciar;
+    console.log("despues del .try", auth.currentUser);
+    const user = userCredential.user;
+    console.log(user, 'user controlador');
+    return user;
+  } catch (error) {
+    const errorCode = error.code;
+    console.log(errorCode, 'errorCode');
+    const errorMessage = error.message;
+    console.log(errorMessage, 'errorMessage');
+    throw errorMessage;
+  }
 }
+
 
 // registrarse con google 
 export function registroGoogle(){

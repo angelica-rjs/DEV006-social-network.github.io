@@ -30,12 +30,19 @@ export function login(navigateTo){
     login.appendChild(botonGoogle);
   
     botonIniciar.addEventListener('click', () => {
-        const email = document.getElementById('emailSesion').value;
-        const password = document.getElementById('paswordSesion').value;
-        iniciar(email, password);
-        console.log(email);
-        console.log(password);
-      })
+      const email = document.getElementById('emailSesion').value;
+      const password = document.getElementById('paswordSesion').value;
+      iniciar(email, password).then((user) => {
+        console.log(user, 'iniciar');
+        if (user !== null) {
+          console.log('estamos en if');
+          navigateTo('/welcome');
+        }
+      }).catch((errorMessage) => {
+        console.log(errorMessage, 'singUp');
+        alert('Usuario no registrado');
+      });
+    });
   
     //addEventLitener de boton google
     botonGoogle.addEventListener("click", () => {
