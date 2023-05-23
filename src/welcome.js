@@ -2,7 +2,8 @@ import { mostrarLogo } from "./contents";
 
 export function welcome(navigateTo){
   const welcome = document.createElement('div')
-    mostrarLogo();
+  const logo = mostrarLogo();
+  welcome.appendChild(logo);
     // Parrafo Felicidades
     const congratulation = document.createElement('div');
     congratulation.classList = 'congratulation';

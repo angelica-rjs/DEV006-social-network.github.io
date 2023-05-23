@@ -1,17 +1,19 @@
-import { mostrarLogo, botonRegistrarse, buttonGoogle } from "./contents";
+import { mostrarLogo, botonRegistrarse, buttonGoogle} from "./contents";
 import { registrar, registroGoogle } from "./lib/controlador"
-import {welcome} from "./welcome";
 
- export function singUp(navigateTo) {
+ 
+export function singUp(navigateTo) {
 
     const singUp = document.createElement('div')
-    mostrarLogo();
+    const logo = mostrarLogo();
+    singUp.appendChild(logo);
     // Formulario
     const formularioVista2 = document.createElement('form');
     formularioVista2.classList = 'form';
     formularioVista2.innerHTML = ` <input class="inputFormulario" id="emailRegistro" type="mail" placeholder="CORREO ELECTRONICO"><small></small>
     <input class="inputFormulario" id="nameRegistro" type="text" placeholder="NOMBRE DE USARIO"><small></small>
-    <input class="inputFormulario" id="passwordRegistro" type="password" placeholder="CONTRASEÑA"><small>Especificación de contraseña</small>`;
+    <input class="inputFormulario" id="passwordRegistro" type="password" placeholder="CONTRASEÑA"><small>Mínimo 6 caracteres</small>`;
+   //TODO especificacion contraseña
     singUp.appendChild(formularioVista2);
     // Boton registro
     const botonRegistro = document.createElement('div');
@@ -34,8 +36,16 @@ import {welcome} from "./welcome";
       const emailRegistro = document.getElementById('emailRegistro').value;
       const nameRegistro = document.getElementById('nameRegistro').value;
       const passwordRegistro = document.getElementById('passwordRegistro').value;
-      registrar(emailRegistro, passwordRegistro)
-      welcome();
+      registrar(emailRegistro, passwordRegistro).then(function (user){
+        console.log(user, "singUp")
+        if (user !== null ){
+          console.log("estamos en if")
+          navigateTo('/welcome')
+        }
+      }).catch(function(errorMessage){
+        console.log(errorMessage, "singUp")
+        alert("Correo o contraseña no es válida")
+        })
     })
   
     //addEventLitener de boton google
