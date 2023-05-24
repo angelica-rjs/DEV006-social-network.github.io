@@ -236,3 +236,30 @@ small {
   background-color: #32324D;
 
 }
+
+.contenedorMenu{
+  background-color: #32324D;
+  position:fixed; 
+  bottom:0;
+  height: 10%;
+  
+}
+
+.buttonPalta{
+  display: flex;
+  margin: auto;
+  width: 25%;
+  height: 120%;
+  transform: translateY(-50%);
+  border: 2px;
+  border-radius: 50%;
+  background-color: #32324D;
+}
+
+
+.imagenPalta{
+  border-radius: 50%;
+  margin: auto;
+  width: 75%;
+  height: 90%;
+}
