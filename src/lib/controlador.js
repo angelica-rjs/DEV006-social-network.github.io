@@ -1,44 +1,53 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { app } from "./firebase";
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  signInWithPopup, GoogleAuthProvider,
+} from 'firebase/auth';
+import { app } from './firebase';
 
-
-//registrarse con correo y contraseña
-export function registrar(email, password ){
-    const auth = getAuth(app);
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..a
-      });
+// registrarse con correo y contraseña
+export async function registrar(email, password) {
+  const auth = getAuth(app);
+  console.log(`antes del .then${auth.currentUser}`);
+  const result = createUserWithEmailAndPassword(auth, email, password);
+  try {
+    const userCredential = await result;
+    console.log(`despues del .then${auth.currentUser}`);
+    // Signed in
+    const user = userCredential.user;
+    console.log(user, 'user controlador');
+    return user;
+  } catch (error) {
+    const errorCode = error.code;
+    console.log(errorCode, 'errorCode');
+    const errorMessage = error.message;
+    console.log(errorMessage, 'errorMessage');
+    throw errorMessage;
+  }
 }
 
 // inicio de sesion con correo y contraseña
-export function iniciar(email, password){
-  console.log("estamos en la funcion iniciar")
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-      // Signed in
-      console.log("pasamos el login")
-      const user = userCredential.user;
-      
-      // ...
-      })
-      .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert("su correo no esta registrado")
-      });
+export async function iniciar(email, password) {
+  console.log('estamos en la funcion iniciar');
+  const auth = getAuth(app);
+  const resultiniciar = signInWithEmailAndPassword(auth, email, password);
+  try {
+    const userCredential = await resultiniciar;
+    console.log('despues del .try', auth.currentUser);
+    const user = userCredential.user;
+    console.log(user, 'user controlador');
+    return user;
+  } catch (error) {
+    const errorCode = error.code;
+    console.log(errorCode, 'errorCode');
+    const errorMessage = error.message;
+    console.log(errorMessage, 'errorMessage');
+    throw errorMessage;
+  }
 }
 
-// registrarse con google 
-export function registroGoogle(){
+// registrarse con google
+export function registroGoogle() {
+  //TODO  validaciones 
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   signInWithPopup(auth, provider)
@@ -50,9 +59,9 @@ export function registroGoogle(){
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
       // ...
-      //limpiarContenedorUniversal();
-      //vista4();
-     })
+      // limpiarContenedorUniversal();
+      // vista4();
+    })
     .catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -65,8 +74,9 @@ export function registroGoogle(){
     });
 }
 
-//iniciar sesion con google
-export function loginGoogle(){
+// iniciar sesion con google
+export function loginGoogle() {
+  //TODO  validaciones 
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   signInWithPopup(auth, provider)
@@ -78,7 +88,7 @@ export function loginGoogle(){
       const user = result.user;
       // IdP data available using getAdditionalUserInfo(result)
       // ...
-     })
+    })
     .catch((error) => {
       // Handle Errors here.
       const errorCode = error.code;
@@ -90,5 +100,3 @@ export function loginGoogle(){
       // ...
     });
 }
-
-
