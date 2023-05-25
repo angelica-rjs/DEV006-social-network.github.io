@@ -236,3 +236,99 @@ small {
   background-color: #32324D;
 
 }
+
+.contenedorMenu{
+  background-color: #32324D;
+  position:fixed; 
+  bottom:0;
+  height: 10%;
+  
+}
+
+.buttonPalta{
+  display: flex;
+  margin: auto;
+  width: 25%;
+  height: 120%;
+  transform: translateY(-50%);
+  border: 2px;
+  border-radius: 50%;
+  background-color: #32324D;
+}
+
+
+.imagenPalta{
+  border-radius: 50%;
+  margin: auto;
+  width: 90%;
+  height: 90%;
+  
+}
+
+.modal{
+  width: 80%;
+  height: 60%;
+  border: solid #81Bab4 2px;
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 15%;
+}
+
+.divX{
+  width: 5%;
+  height: 3%;
+  float: right;
+  margin-right: 2%;
+  margin-top: 2%;
+  border: 0;
+}
+
+.title{
+  margin: auto;
+  margin-top: 10%;
+  width: 80%;
+  height: 10%;
+}
+
+.inputText{
+  margin-top: 2%;
+  width: 100%;
+  height: 40%;
+  justify-content: center;
+  border: solid #81Bab4 2px;
+  border-radius: 10px;
+  background-color: #edf5f5;
+}
+
+.description{
+  margin: auto;
+  margin-top: 20%;
+  width: 80%;
+  height: 30%;
+}
+
+.inputDescription{
+  margin-top: 2%;
+  width: 100%;
+  height: 60%;
+  justify-content: center;
+  border: solid #81Bab4 2px;
+  border-radius: 10px;
+  background-color: #edf5f5;
+}
+
+.postBtn{
+  display: flex;
+  margin: auto;
+  width: 80%;
+  height: 6%;
+  background-color: #81Bab4;
+  border-radius: 60px;
+  justify-content: center;
+  align-items: center;
+  font-size: 80%;
+  cursor: pointer;
+  text-transform: uppercase;
+  border: 0;
+  font-weight: bold;
+}
