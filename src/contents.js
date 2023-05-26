@@ -2,7 +2,6 @@ export const logoKetoLife = '<img src="imagenes/LogoKetoLife.png">';
 export const botonIniciarSesion = '<button class="botonesIniciales" type="button">Iniciar Sesión</button>';
 export const botonRegistrarse = '<button class="botonesIniciales" type="button">Registrarse</button>';
 export const buttonGoogle = '<button><img src="./imagenes/btn_google.png"></button>';
-// export const logoKetoLifeBlanco = '<img class="imagenLogoKetoLifeBlanco" src="imagenes/LogoKetoLifeBlanco.png">';
 
 // /*------------------------------------MOSTRAR LOGO--------------------------------------*/
 export function mostrarLogo() {
@@ -21,4 +20,5 @@ export function header() {
 }
 
 
-// /*------------------------------------MENU--------------------------------------*/
+
+
