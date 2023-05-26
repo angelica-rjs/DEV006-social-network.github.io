@@ -17,7 +17,3 @@ export function header() {
   contendorHeader.setAttribute('class', 'logoketolifeblanco');
   return contendorHeader;
 }
-
-
-
-

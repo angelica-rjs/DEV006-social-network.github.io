@@ -12,7 +12,7 @@ export function home(navigateTo) {
   const botonPalta = document.createElement('button');
   botonPalta.setAttribute('class', 'buttonPalta');
   botonPalta.setAttribute('id', 'palta');
-  
+
   const imagenPalta = document.createElement('img');
   imagenPalta.setAttribute('class', 'imagenPalta');
   imagenPalta.setAttribute('src', 'imagenes/paltamenu.png');
@@ -29,6 +29,3 @@ export function home(navigateTo) {
 
   return nodehome;
 }
-
-
-  
