@@ -30,9 +30,8 @@ export function modal () {
     const labelDescription = document.createElement('label');
     labelDescription.innerHTML = 'DESCRIBE TU RECETA'
     description.appendChild(labelDescription);
-    const inputDescription = document.createElement('input');
+    const inputDescription = document.createElement('textarea');
     inputDescription.setAttribute('class', 'inputDescription');
-    inputDescription.setAttribute('type', 'textarea');
     description.appendChild(inputDescription);
     publicationModal.appendChild(description);
 

@@ -259,6 +259,7 @@ small {
 
 .imagenPalta{
   border-radius: 50%;
+  border: #32324D solid;
   margin: auto;
   width: 90%;
   height: 90%;
