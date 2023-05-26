@@ -39,7 +39,7 @@ export function login(navigateTo) {
       }
     }).catch((errorMessage) => {
       console.log(errorMessage, 'singUp');
-      alert('Usuario no registrado');
+      alert('Usuario no registrado o contraseña incorrecta');
     });
   });
 
