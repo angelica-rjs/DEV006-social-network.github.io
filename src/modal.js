@@ -13,6 +13,7 @@ export function modal () {
     divX.appendChild(imgX);
     publicationModal.appendChild(divX);
 
+    
     const title = document.createElement('div');
     title.setAttribute('class', 'title');
     const labelTitle = document.createElement('label');
