@@ -1,12 +1,13 @@
 import { db } from './firebase';
 
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 
 
 export async function saveTask(titulo, descripcion){
   try {
-    const postRef = await addDoc(collection(db, "post"), {
-      name: nombre,
+    const postRef = collection(db, "post"); 
+    await setDoc(doc(postRef,"usuario"),{
+      //name: nombre,
       title: titulo,
       description: descripcion
     });
