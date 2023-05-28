@@ -100,3 +100,17 @@ export function loginGoogle() {
       // ...
     });
 }
+
+// Solo se puede singIn con Google?
+
+// export async function login() {
+//  const provider = new firebase.auth.GoogleAuthProvider();
+//  const auth = firebase.auth();
+//  try {
+//    const response = await auth.singInWithPopUp(provider);
+//    console.log(response);
+//    return response.user;
+//  } catch (error) {
+//    throw new ERROR(error);
+//  }
+// };
