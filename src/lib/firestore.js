@@ -4,18 +4,20 @@ import { collection, addDoc, getDocs } from "firebase/firestore";
 
 
 export async function saveTask(titulo, descripcion){
-// Add a new document with a generated id.
-const docRef = await addDoc(collection(db, "publicacion"), {
-  name: "titulo",
-  description: " description"
-});
-console.log("Document written with ID: ", docRef.id);
-
-const querySnapshot = await getDocs(collection(db, "publicacion"));
-querySnapshot.forEach((doc) => {
+  try {
+    const postRef = await addDoc(collection(db, "post"), {
+      name: nombre,
+      title: titulo,
+      description: descripcion
+    });
+    console.log("Document written with ID: ", postRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+  const querySnapshot = await getDocs(collection(db, "users"));
+  querySnapshot.forEach((doc) => {
   console.log(`${doc.id} => ${doc.data()}`);
-});
-
+  });
 }
 
 
