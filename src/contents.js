@@ -11,6 +11,7 @@ export function mostrarLogo() {
   return contenedorLogoKetoLife;
 }
 
+// /*------------------------------------HEADER--------------------------------------*/
 export function header() {
   const contendorHeader = document.createElement('div');
   contendorHeader.innerHTML = '<div class="divimagenLogoKetoLifeBlanco"><img class="imagenLogoKetoLifeBlanco" src="imagenes/LogoKetoLifeBlanco.png"></div>';

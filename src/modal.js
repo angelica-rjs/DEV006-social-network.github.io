@@ -1,7 +1,8 @@
 import { saveTask } from './lib/firestore';
 
-export function modal() {
+export function modal(nameRegistro) {
   console.log('estamos en la modal');
+
 
   const publicationModal = document.createElement('section');
   publicationModal.setAttribute('class', 'modal');
@@ -44,6 +45,8 @@ export function modal() {
   postBtn.innerHTML = 'PUBLICAR';
   publicationModal.appendChild(postBtn);
 
+  const user = nameRegistro
+  console.log (user)
   divX.addEventListener('click', () => {
     publicationModal.style.display = 'none';
   });
