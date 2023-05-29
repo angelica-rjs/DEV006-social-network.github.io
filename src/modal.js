@@ -1,4 +1,4 @@
-import { saveTask } from './lib/firestore';
+//import { saveTask } from './lib/firestore';
 
 export function modal(nameRegistro) {
   console.log('estamos en la modal');
