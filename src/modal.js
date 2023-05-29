@@ -1,11 +1,15 @@
-//import { saveTask } from './lib/firestore';
+import { saveTask } from './lib/firestore';
+import { header } from './contents';
 
-export function modal(nameRegistro) {
+export function modal(navigateTo) {
   console.log('estamos en la modal');
-
-
+  const cuepoModal = document.createElement('div')
+  const modalHeader = header();
+  cuepoModal.appendChild(modalHeader);
+  
   const publicationModal = document.createElement('section');
   publicationModal.setAttribute('class', 'modal');
+
 
   const divX = document.createElement('button');
   divX.setAttribute('class', 'divX');
@@ -44,27 +48,39 @@ export function modal(nameRegistro) {
   postBtn.setAttribute('type', 'button');
   postBtn.innerHTML = 'PUBLICAR';
   publicationModal.appendChild(postBtn);
+  cuepoModal.appendChild(publicationModal);
 
-  const user = nameRegistro
-  console.log (user)
+  const contenedorMenu = document.createElement('div');
+  contenedorMenu.setAttribute('class', 'contenedorMenu');
+
+  const botonPalta = document.createElement('button');
+  botonPalta.setAttribute('class', 'buttonPalta');
+  botonPalta.setAttribute('id', 'palta');
+
+  const imagenPalta = document.createElement('img');
+  imagenPalta.setAttribute('class', 'imagenPalta');
+  imagenPalta.setAttribute('src', 'imagenes/paltamenu.png');
+  botonPalta.appendChild(imagenPalta);
+  contenedorMenu.appendChild(botonPalta);
+
+  cuepoModal.appendChild(contenedorMenu);
+
   divX.addEventListener('click', () => {
-    publicationModal.style.display = 'none';
+    navigateTo('/home');
   });
 
   postBtn.addEventListener('click', () => {
-    const titulo = document.getElementById('inputTextId').value;
+    let titulo = document.getElementById('inputTextId').value;
     console.log(titulo);
-    const descripcion = document.getElementById('inputDescriptionId').value;
+    let descripcion = document.getElementById('inputDescriptionId').value;
     console.log(descripcion);
-    publicationModal.style.display = 'none';
+    navigateTo('/home');
+    //publicationModal.style.display = 'none';
     saveTask(titulo, descripcion);
-    // .then((docRef) => {
-    //   console.log(`Laqueso${docRef.id}`);
-    // }).catch((error) => {
-    //   console.log(`no soportó${error}`);
-    // });
-    // console.log(guardarDatos);
-  });
+    //document.getElementById('inputTextId').value = '';
+    //document.getElementById('inputDescriptionId').value = '';
 
-  return publicationModal;
+  });
+  return cuepoModal;
+
 }

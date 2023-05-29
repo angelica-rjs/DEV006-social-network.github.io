@@ -4,6 +4,7 @@ import { welcome } from './welcome';
 import { login } from './login';
 import { error } from './error';
 import { home } from './home';
+import { modal } from './modal';
 // importacion de firebase
 
 const routes = [
@@ -13,6 +14,7 @@ const routes = [
   { path: '/login', component: login },
   { path: '/error', component: error },
   { path: '/home', component: home },
+  { path: '/post', component: modal },
 ];
 
 // Ruta que queda por defectp (aca se define  que siempre se abre en landing )

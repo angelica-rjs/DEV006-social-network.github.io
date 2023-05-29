@@ -1,7 +1,7 @@
 import { header } from './contents.js';
-import { modal } from './modal.js';
 
 export function home(navigateTo) {
+  
   const nodehome = document.createElement('div');
   const theHeader = header();
   nodehome.appendChild(theHeader);
@@ -23,8 +23,9 @@ export function home(navigateTo) {
 
   botonPalta.addEventListener('click', () => {
     console.log('estamos en el addEvent');
-    const modalElement = modal();
-    nodehome.appendChild(modalElement);
+   navigateTo('/post');
+   
+  
   });
 
   return nodehome;
