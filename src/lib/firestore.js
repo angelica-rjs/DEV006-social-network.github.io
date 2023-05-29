@@ -1,9 +1,29 @@
 import { db } from './firebase';
 
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, setDoc } from "firebase/firestore";
 
 
-export async function saveTask(titulo, descripcion){
+export async function dataUser (mail, name, password){
+  try {
+    const docRef = await addDoc(collection(db, "users"), {
+      nombre: name,
+      correo: mail,
+      contraseña: password
+    });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+  const querySnapshot = await getDocs(collection(db, "users"));
+  querySnapshot.forEach((doc) => {
+  console.log(`${doc.id} => ${doc.data()}`);
+});
+
+}
+
+
+
+/*export async function saveTask(titulo, descripcion){
   try {
     const postRef = collection(db, "post"); 
     await setDoc(doc(postRef,"usuario"),{

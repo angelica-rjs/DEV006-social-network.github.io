@@ -1,5 +1,6 @@
 import { mostrarLogo, botonRegistrarse, buttonGoogle } from './contents';
 import { registrar, registroGoogle } from './lib/controlador';
+import { dataUser } from './lib/firestore';
 
 export function singUp(navigateTo) {
   const nodesingUp = document.createElement('div');
@@ -38,6 +39,7 @@ export function singUp(navigateTo) {
       console.log(user, 'singUp');
       if (user !== null) {
         console.log('estamos en if');
+        dataUser(emailRegistro, nameRegistro,passwordRegistro);
         navigateTo('/welcome');
       }
     }).catch((errorMessage) => {
