@@ -3,6 +3,15 @@ export const botonIniciarSesion = '<button class="botonesIniciales" type="button
 export const botonRegistrarse = '<button class="botonesIniciales" type="button">Registrarse</button>';
 export const buttonGoogle = '<button><img src="./imagenes/btn_google.png"></button>';
 
+// /*-----------------------------------LIMPOIAR CONTENEDOR UNIVERSAL----------------------*/
+// const contenedorUniversal=
+
+// export function limpiarContenedorUniversal() {
+//  const contenedorLogoKetoLife = document.createElement('div');
+
+//  return contenedorLogoKetoLife;
+// }
+
 // /*------------------------------------MOSTRAR LOGO--------------------------------------*/
 export function mostrarLogo() {
   const contenedorLogoKetoLife = document.createElement('div');

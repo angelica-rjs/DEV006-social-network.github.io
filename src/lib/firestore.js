@@ -1,9 +1,9 @@
 import { db } from './firebase';
 
-import { collection, addDoc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 
 
-export async function dataUser (mail, name, password){
+/*export async function dataUser(mail, name, password) {
   try {
     const docRef = await addDoc(collection(db, "users"), {
       nombre: name,
@@ -16,28 +16,26 @@ export async function dataUser (mail, name, password){
   }
   const querySnapshot = await getDocs(collection(db, "users"));
   querySnapshot.forEach((doc) => {
-  console.log(`${doc.id} => ${doc.data()}`);
-});
+    console.log(`${doc.id} => ${doc.data()}`);
+  });
 
-}
+}*/
 
-
-
-/*export async function saveTask(titulo, descripcion){
+export async function saveTask(titulo, descripcion) {
   try {
-    const postRef = collection(db, "post"); 
-    await setDoc(doc(postRef,"usuario"),{
+    const postRef = collection(db, 'post');
+    await setDoc(doc(postRef), {
       //name: nombre,
       title: titulo,
-      description: descripcion
+      description: descripcion,
     });
-    console.log("Document written with ID: ", postRef.id);
+    console.log('Document written with ID: ', postRef.id);
   } catch (e) {
-    console.error("Error adding document: ", e);
+    console.error('Error adding document: ', e);
   }
-  const querySnapshot = await getDocs(collection(db, "users"));
+  const querySnapshot = await getDocs(collection(db, 'users'));
   querySnapshot.forEach((doc) => {
-  console.log(`${doc.id} => ${doc.data()}`);
+    console.log(`${doc.id} => ${doc.data()}`);
   });
 }
 

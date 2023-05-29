@@ -1,8 +1,7 @@
-//import { saveTask } from './lib/firestore';
+import { saveTask } from './lib/firestore';
 
-export function modal(nameRegistro) {
+export function modal() {
   console.log('estamos en la modal');
-
 
   const publicationModal = document.createElement('section');
   publicationModal.setAttribute('class', 'modal');
@@ -41,29 +40,25 @@ export function modal(nameRegistro) {
 
   const postBtn = document.createElement('button');
   postBtn.setAttribute('class', 'postBtn');
-  postBtn.setAttribute('type', 'button');
+  postBtn.setAttribute('type', 'submit');
   postBtn.innerHTML = 'PUBLICAR';
   publicationModal.appendChild(postBtn);
 
-  const user = nameRegistro
-  console.log (user)
+  /*const user = nameRegistro;
+  console.log(user)
   divX.addEventListener('click', () => {
     publicationModal.style.display = 'none';
-  });
+  });*/
 
   postBtn.addEventListener('click', () => {
+    //e.preventDefault();
     const titulo = document.getElementById('inputTextId').value;
     console.log(titulo);
     const descripcion = document.getElementById('inputDescriptionId').value;
     console.log(descripcion);
     publicationModal.style.display = 'none';
     saveTask(titulo, descripcion);
-    // .then((docRef) => {
-    //   console.log(`Laqueso${docRef.id}`);
-    // }).catch((error) => {
-    //   console.log(`no soportó${error}`);
-    // });
-    // console.log(guardarDatos);
+
   });
 
   return publicationModal;
