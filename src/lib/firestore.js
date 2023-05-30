@@ -18,7 +18,7 @@ export async function saveTask(titulo, descripcion){
 
   
 
-  export async function obtenerData() {
+  /*export async function obtenerData() {
     const collectionRef = collection(db, "post");
     const querySnapshot = await getDocs(collectionRef);  // en la funcion asyncrona con getdoc obtenemos pla promesa
   
@@ -29,7 +29,7 @@ export async function saveTask(titulo, descripcion){
     });
   
     return allData;
-  }
+  }*/
 
   export function obtenerData2(callback){
      onSnapshot(collection(db, "post"), (snapshot) => {
