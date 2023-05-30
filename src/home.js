@@ -15,9 +15,26 @@ export function home(navigateTo) {
   botonPalta.setAttribute('class', 'buttonPalta');
   botonPalta.setAttribute('id', 'palta');
 
+  const data = document.createElement('div');
+  data.setAttribute('id', 'postData');
+  obtenerData().then(publicaciones => {  // obtener datos es una promesa de una funcion asincrona por lo tanto debe llevar el .then
+    publicaciones.forEach ((publicacion) =>{
+     
+  const divPublicacion = document.createElement('div');
+
+  const titlePublicacion = document.createElement('h2');
+  titlePublicacion.innerHTML = publicacion.title; 
+
+  divPublicacion.appendChild(titlePublicacion);
+  data.appendChild(divPublicacion);
+  nodehome.appendChild(data);
+})
+});
+
   /*const publicaciones = obtenerData();
   const data = document.createElement('div')
   data.setAttribute('id', 'postData');
+  
   const titlePublicacion = document.createElement('h2');
   titlePublicacion.innerHTML = `${publicaciones.title}`
   data.appendChild(titlePublicacion);
