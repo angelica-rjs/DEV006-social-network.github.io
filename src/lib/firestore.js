@@ -1,6 +1,5 @@
 import { db } from './firebase';
-
-import { collection, doc, setDoc, onSnapshot } from "firebase/firestore";
+import { collection, doc, setDoc, getDocs, onSnapshot } from "firebase/firestore";
 
 export async function saveTask(titulo, descripcion){
   console.log(titulo, descripcion)
@@ -19,44 +18,29 @@ export async function saveTask(titulo, descripcion){
 
   
 
-  export function obtenerData(){
-  const collectionRef = collection(db, "post");
-  const unsub = onSnapshot(collectionRef, (querySnapshot) => {
+  export async function obtenerData() {
+    const collectionRef = collection(db, "post");
+    const querySnapshot = await getDocs(collectionRef);  // en la funcion asyncrona con getdoc obtenemos pla promesa
+  
+    const allData = []; // array para poner los datos 
+  
     querySnapshot.forEach((doc) => {
-      const allData = doc.data();
-     /* const data = document.createElement('div')
-      data.setAttribute('id', 'postData');
-      const titlePublicacion = document.createElement('h2');
-      titlePublicacion.innerHTML = `${allData.title}`
-      data.appendChild(titlePublicacion);*/
-      
-
-        /*hmtl += `
-        <div>
-        <h2>${allData.title}</h2>
-        <p>${allData.description}</p>
-        </div>
-        `*/
-
-
-      // console.log(allData);
-     // console.log("Current data: ", doc.data());
-     return allData;
-    }); 
-  });
+      allData.push(doc.data()); // cpn push vamos agregando los dato al array
+    });
   
-} 
+    return allData;
+  }
 
-
-
-/*export function publicacion(){
-  const obtenerData = obtenerData();
-console.log("Llamandola data", obtenerData);
-}
-  
-
-
-
+  export function obtenerData2(callback){
+     onSnapshot(collection(db, "post"), (snapshot) => {
+      const posts = []; // array para poner los datos 
+      snapshot.forEach((doc) => {
+        posts.push(doc.data()); // cpn push vamos agregando los dato al array
+      });
+      callback(posts)
+     } );
+     
+  }
 
 
 
