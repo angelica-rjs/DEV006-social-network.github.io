@@ -1,4 +1,6 @@
 import { header } from './contents.js';
+import { obtenerData, obtenerData2 } from './lib/firestore.js';
+
 
 export function home(navigateTo) {
   
@@ -13,6 +15,47 @@ export function home(navigateTo) {
   botonPalta.setAttribute('class', 'buttonPalta');
   botonPalta.setAttribute('id', 'palta');
 
+/* ------------------ DIV DE PUBLICACIONES ------------------*/ 
+function mostrarpost(posts){
+  console.log("ultimo console",posts)
+  const data = document.createElement('div');
+  data.setAttribute('id', 'postData');
+  posts.forEach ((post) =>{
+     
+  const  containerPost= document.createElement('div');
+  containerPost.setAttribute("class", "containerPost")
+
+  const titlePublicacion = document.createElement('h2');
+  titlePublicacion.setAttribute("class" , "titlePublicacion")
+  
+  titlePublicacion.innerHTML = post.title; 
+
+  const descriptionPublicacion = document.createElement('p');
+  descriptionPublicacion.setAttribute("class" , "descriptionPublicacion")
+  descriptionPublicacion.innerHTML = post.description;
+
+  containerPost.appendChild(titlePublicacion);
+  containerPost.appendChild(descriptionPublicacion);
+  data.appendChild(containerPost);
+  data.appendChild(containerPost);
+  
+})
+nodehome.appendChild(data);
+  
+
+} 
+obtenerData2(mostrarpost)
+
+ /* const data = document.createElement('div');
+  data.setAttribute('id', 'postData');
+  obtenerData().then(publicaciones => { 
+    console.log(publicaciones, "del home") // obtener datos es una promesa de una funcion asincrona por lo tanto debe llevar el .then
+    
+});*/
+
+/*----------------------------------------------------*/
+
+
   const imagenPalta = document.createElement('img');
   imagenPalta.setAttribute('class', 'imagenPalta');
   imagenPalta.setAttribute('src', 'imagenes/paltamenu.png');
@@ -21,12 +64,14 @@ export function home(navigateTo) {
 
   nodehome.appendChild(contenedorMenu);
 
+
   botonPalta.addEventListener('click', () => {
     console.log('estamos en el addEvent');
-   navigateTo('/post');
-   
+    navigateTo('/post');
   
   });
 
   return nodehome;
 }
+
+

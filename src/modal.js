@@ -75,10 +75,8 @@ export function modal(navigateTo) {
     let descripcion = document.getElementById('inputDescriptionId').value;
     console.log(descripcion);
     navigateTo('/home');
-    //publicationModal.style.display = 'none';
     saveTask(titulo, descripcion);
-    //document.getElementById('inputTextId').value = '';
-    //document.getElementById('inputDescriptionId').value = '';
+   
 
   });
   return cuepoModal;
