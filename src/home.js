@@ -1,4 +1,5 @@
 import { header } from './contents.js';
+import { obtenerData } from './lib/firestore.js';
 
 export function home(navigateTo) {
   
@@ -13,6 +14,12 @@ export function home(navigateTo) {
   botonPalta.setAttribute('class', 'buttonPalta');
   botonPalta.setAttribute('id', 'palta');
 
+ /* const data = document.createElement('div')
+  data.innerHTML = obtenerData();
+  nodehome.appendChild(data);*/
+
+
+
   const imagenPalta = document.createElement('img');
   imagenPalta.setAttribute('class', 'imagenPalta');
   imagenPalta.setAttribute('src', 'imagenes/paltamenu.png');
@@ -21,12 +28,14 @@ export function home(navigateTo) {
 
   nodehome.appendChild(contenedorMenu);
 
+
   botonPalta.addEventListener('click', () => {
     console.log('estamos en el addEvent');
-   navigateTo('/post');
-   
+    navigateTo('/post');
   
   });
 
   return nodehome;
 }
+
+
