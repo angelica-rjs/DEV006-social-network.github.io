@@ -25,21 +25,18 @@ export function home(navigateTo) {
   const titlePublicacion = document.createElement('h2');
   titlePublicacion.innerHTML = publicacion.title; 
 
+  const descriptionPublicacion = document.createElement('p');
+  descriptionPublicacion.innerHTML = publicacion.description;
+
   divPublicacion.appendChild(titlePublicacion);
+  divPublicacion.appendChild(descriptionPublicacion);
   data.appendChild(divPublicacion);
-  nodehome.appendChild(data);
+  data.appendChild(divPublicacion);
+  
 })
+nodehome.appendChild(data);
 });
 
-  /*const publicaciones = obtenerData();
-  const data = document.createElement('div')
-  data.setAttribute('id', 'postData');
-  
-  const titlePublicacion = document.createElement('h2');
-  titlePublicacion.innerHTML = `${publicaciones.title}`
-  data.appendChild(titlePublicacion);
-  nodehome.appendChild(data);*/
-  
 
 
   const imagenPalta = document.createElement('img');
