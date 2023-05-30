@@ -35,7 +35,7 @@ function mostrarpost(posts){
   const descriptionPublicacion = document.createElement('p');
   descriptionPublicacion.setAttribute("class" , "descriptionPublicacion")
   descriptionPublicacion.innerHTML = post.description;
-  //like
+  //like //cambios para clai
   const containerLike = document.createElement('div');
   containerLike.setAttribute("class", "containerLike");
   const buttonLike = document.createElement('button')
