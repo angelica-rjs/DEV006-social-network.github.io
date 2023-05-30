@@ -24,12 +24,35 @@ export async function saveTask(titulo, descripcion){
   const unsub = onSnapshot(collectionRef, (querySnapshot) => {
     querySnapshot.forEach((doc) => {
       const allData = doc.data();
-      console.log(allData);
+     /* const data = document.createElement('div')
+      data.setAttribute('id', 'postData');
+      const titlePublicacion = document.createElement('h2');
+      titlePublicacion.innerHTML = `${allData.title}`
+      data.appendChild(titlePublicacion);*/
+      
+
+        /*hmtl += `
+        <div>
+        <h2>${allData.title}</h2>
+        <p>${allData.description}</p>
+        </div>
+        `*/
+
+
+      // console.log(allData);
      // console.log("Current data: ", doc.data());
-    });
+     return allData;
+    }); 
   });
-  return doc.data;
-} obtenerData();
+  
+} 
+
+
+
+/*export function publicacion(){
+  const obtenerData = obtenerData();
+console.log("Llamandola data", obtenerData);
+}
   
 
 
