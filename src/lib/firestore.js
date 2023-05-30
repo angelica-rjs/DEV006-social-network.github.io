@@ -1,6 +1,5 @@
 import { db } from './firebase';
-
-import { collection, doc, setDoc, onSnapshot, getDocs } from "firebase/firestore";
+import { collection, doc, setDoc, getDocs, onSnapshot } from "firebase/firestore";
 
 export async function saveTask(titulo, descripcion){
   console.log(titulo, descripcion)
@@ -32,19 +31,18 @@ export async function saveTask(titulo, descripcion){
     return allData;
   }
 
+  export function obtenerData2(callback){
+     onSnapshot(collection(db, "post"), (snapshot) => {
+      const posts = []; // array para poner los datos 
+      snapshot.forEach((doc) => {
+        posts.push(doc.data()); // cpn push vamos agregando los dato al array
+      });
+      callback(posts)
+     } );
+     
+  }
 
-/*export function publicacion(){
-  const obtenerData = obtenerData();
-console.log("Llamandola data", obtenerData);
-}
-  
 
-/*hmtl += `
-        <div>
-        <h2>${allData.title}</h2>
-        <p>${allData.description}</p>
-        </div>
-        `*/
 
 
 
