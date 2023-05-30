@@ -1,5 +1,5 @@
 import { header } from './contents.js';
-import { obtenerData, obtenerData2 } from './lib/firestore.js';
+import { obtenerData2 } from './lib/firestore.js';
 
 
 export function home(navigateTo) {
@@ -20,7 +20,9 @@ function mostrarpost(posts){
   console.log("ultimo console",posts)
   const data = document.createElement('div');
   data.setAttribute('id', 'postData');
+
   posts.forEach ((post) =>{
+  
      
   const  containerPost= document.createElement('div');
   containerPost.setAttribute("class", "containerPost")
@@ -33,25 +35,25 @@ function mostrarpost(posts){
   const descriptionPublicacion = document.createElement('p');
   descriptionPublicacion.setAttribute("class" , "descriptionPublicacion")
   descriptionPublicacion.innerHTML = post.description;
-
+  //like
+  const containerLike = document.createElement('div');
+  containerLike.setAttribute("class", "containerLike");
+  const buttonLike = document.createElement('button')
+  buttonLike.setAttribute("class", "buttonLike");
+  buttonLike.innerHTML= '<img class="imgChef" src="./imagenes/chef.png" >'
+  
   containerPost.appendChild(titlePublicacion);
   containerPost.appendChild(descriptionPublicacion);
+  containerPost.appendChild(buttonLike);
+  //data.appendChild(containerPost);
   data.appendChild(containerPost);
-  data.appendChild(containerPost);
-  
 })
-nodehome.appendChild(data);
-  
-
+  nodehome.innerHTML = ''; 
+  nodehome.appendChild(theHeader);
+  nodehome.appendChild(data);
+  nodehome.appendChild(contenedorMenu);
 } 
 obtenerData2(mostrarpost)
-
- /* const data = document.createElement('div');
-  data.setAttribute('id', 'postData');
-  obtenerData().then(publicaciones => { 
-    console.log(publicaciones, "del home") // obtener datos es una promesa de una funcion asincrona por lo tanto debe llevar el .then
-    
-});*/
 
 /*----------------------------------------------------*/
 
