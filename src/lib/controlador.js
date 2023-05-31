@@ -1,50 +1,53 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { app } from "./firebase";
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  signInWithPopup, GoogleAuthProvider,
+} from 'firebase/auth';
+import { app } from './firebase';
 
-
-//registrarse con correo y contraseña
+// registrarse con correo y contraseña
 export async function registrar(email, password) {
   const auth = getAuth(app);
-  console.log("antes del .then" + auth.currentUser);
+  console.log(`antes del .then${auth.currentUser}`);
   const result = createUserWithEmailAndPassword(auth, email, password);
   try {
     const userCredential = await result;
-    console.log("despues del .then" + auth.currentUser);
+    console.log(`despues del .then${auth.currentUser}`);
     // Signed in
     const user = userCredential.user;
-    console.log(user, "user controlador");
+    console.log(user, 'user controlador');
     return user;
   } catch (error) {
     const errorCode = error.code;
-    console.log(errorCode, "errorCode");
+    console.log(errorCode, 'errorCode');
     const errorMessage = error.message;
-    console.log(errorMessage, "errorMessage");
+    console.log(errorMessage, 'errorMessage');
     throw errorMessage;
   }
 }
 
 // inicio de sesion con correo y contraseña
-export function iniciar(email, password) {
-  console.log("estamos en la funcion iniciar")
-  const auth = getAuth();
-  const result = signInWithEmailAndPassword(auth, email, password)
-  return result.then((userCredential) => {
-      // Signed in
-      console.log("pasamos el login- then")
-      const user = userCredential.user;
-      console.log(user, "user");
-      return user
-    }).catch((error) => {
-      const errorCode = error.code;
-      console.log(errorCode, "errorCode");
-      const errorMessage = error.message;
-      console.log(errorMessage, "errorMessage");
-      return errorMessage
-    });
+export async function iniciar(email, password) {
+  console.log('estamos en la funcion iniciar');
+  const auth = getAuth(app);
+  const resultiniciar = signInWithEmailAndPassword(auth, email, password);
+  try {
+    const userCredential = await resultiniciar;
+    console.log('despues del .try', auth.currentUser);
+    const user = userCredential.user;
+    console.log(user, 'user controlador');
+    return user;
+  } catch (error) {
+    const errorCode = error.code;
+    console.log(errorCode, 'errorCode');
+    const errorMessage = error.message;
+    console.log(errorMessage, 'errorMessage');
+    throw errorMessage;
+  }
 }
 
-// registrarse con google 
+// registrarse con google
 export function registroGoogle() {
+  //TODO  validaciones 
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   signInWithPopup(auth, provider)
@@ -54,7 +57,10 @@ export function registroGoogle() {
       const token = credential.accessToken;
       // The signed-in user info.
       const user = result.user;
-      
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+      // limpiarContenedorUniversal();
+      // vista4();
     })
     .catch((error) => {
       // Handle Errors here.
@@ -68,8 +74,9 @@ export function registroGoogle() {
     });
 }
 
-//iniciar sesion con google
+// iniciar sesion con google
 export function loginGoogle() {
+  //TODO  validaciones 
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   signInWithPopup(auth, provider)
@@ -94,4 +101,16 @@ export function loginGoogle() {
     });
 }
 
+// Solo se puede singIn con Google?
 
+// export async function login() {
+//  const provider = new firebase.auth.GoogleAuthProvider();
+//  const auth = firebase.auth();
+//  try {
+//    const response = await auth.singInWithPopUp(provider);
+//    console.log(response);
+//    return response.user;
+//  } catch (error) {
+//    throw new ERROR(error);
+//  }
+// };
