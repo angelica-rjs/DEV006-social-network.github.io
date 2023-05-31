@@ -34,10 +34,25 @@ function mostrarpost(posts){
 
   if (post.userId === user.uid ){
     const option = document.createElement('button');
-    option.setAttribute('class', option);
+    option.setAttribute('class', 'option');
     option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >'
     containerPost.appendChild(option);
-  }
+
+   const buttonDelete = document.createElement('button')
+   buttonDelete.setAttribute('id', 'buttonDelete');
+   buttonDelete.innerHTML = 'borrar';
+   buttonDelete.setAttribute("style", "display:none");
+    option.appendChild(buttonDelete);
+
+    option.addEventListener('click', () => {
+      const valideitor = document.getElementById('buttonDelete')
+       if (valideitor.style.display === "none") {
+           valideitor.style.display = "block";
+      } else {
+        valideitor.style.display ="none";
+      }
+    }) 
+  }  
 
   const titlePublicacion = document.createElement('h2');
   titlePublicacion.setAttribute("class" , "titlePublicacion")
