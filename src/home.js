@@ -1,5 +1,6 @@
 import { header } from './contents.js';
 import { obtenerData2 } from './lib/firestore.js';
+import { getAuth } from "firebase/auth";
 
 
 export function home(navigateTo) {
@@ -22,10 +23,18 @@ function mostrarpost(posts){
   data.setAttribute('id', 'postData');
 
   posts.forEach ((post) =>{
+ //validacion para el boton de borrar  
   
-     
   const  containerPost= document.createElement('div');
   containerPost.setAttribute("class", "containerPost")
+
+  //validacion para el boton de borrar  
+  const auth = getAuth();
+  const user = auth.currentUser; 
+
+  if (post.userId === user.uid ){
+    
+  }
 
   const titlePublicacion = document.createElement('h2');
   titlePublicacion.setAttribute("class" , "titlePublicacion")
