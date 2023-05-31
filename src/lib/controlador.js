@@ -47,7 +47,7 @@ export async function iniciar(email, password) {
 
 // registrarse con google
 export function registroGoogle() {
-  //TODO  validaciones 
+  // TODO  validaciones 
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   signInWithPopup(auth, provider)
@@ -76,7 +76,7 @@ export function registroGoogle() {
 
 // iniciar sesion con google
 export function loginGoogle() {
-  //TODO  validaciones 
+  // TODO  validaciones
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   signInWithPopup(auth, provider)

@@ -6,10 +6,9 @@ export function modal(navigateTo) {
   const cuepoModal = document.createElement('div')
   const modalHeader = header();
   cuepoModal.appendChild(modalHeader);
-  
+
   const publicationModal = document.createElement('section');
   publicationModal.setAttribute('class', 'modal');
-
 
   const divX = document.createElement('button');
   divX.setAttribute('class', 'divX');
@@ -76,7 +75,7 @@ export function modal(navigateTo) {
     console.log(descripcion);
     navigateTo('/home');
     saveTask(titulo, descripcion);
-   
+
 
   });
   return cuepoModal;
