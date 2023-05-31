@@ -372,12 +372,7 @@ small {
   width: 100%;
 }
 
-.buttonLike{
-  height: 20%;
-  width: 15%;
+.contador{
+  display: flex;
+  align-items: end;
 }
-
-.contador p {
-  grid-column: 1;
-  justify-self: end;  
-}*/
