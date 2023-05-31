@@ -1,5 +1,6 @@
 import { header } from './contents.js';
 import { obtenerData2 } from './lib/firestore.js';
+import { getAuth } from "firebase/auth";
 
 
 export function home(navigateTo) {
@@ -22,10 +23,21 @@ function mostrarpost(posts){
   data.setAttribute('id', 'postData');
 
   posts.forEach ((post) =>{
+ //validacion para el boton de borrar  
   
-     
   const  containerPost= document.createElement('div');
   containerPost.setAttribute("class", "containerPost")
+
+  //validacion para el boton de borrar  
+  const auth = getAuth();
+  const user = auth.currentUser; 
+
+  if (post.userId === user.uid ){
+    const option = document.createElement('button');
+    option.setAttribute('class', option);
+    option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >'
+    containerPost.appendChild(option);
+  }
 
   const titlePublicacion = document.createElement('h2');
   titlePublicacion.setAttribute("class" , "titlePublicacion")
@@ -38,13 +50,19 @@ function mostrarpost(posts){
   //like //cambios para clai
   const containerLike = document.createElement('div');
   containerLike.setAttribute("class", "containerLike");
+  const contador = document.createElement('p');
+  contador.setAttribute("class", "contador");
+  contador.innerHTML = '0';
   const buttonLike = document.createElement('button')
   buttonLike.setAttribute("class", "buttonLike");
   buttonLike.innerHTML= '<img class="imgChef" src="./imagenes/chef.png" >'
   
+  containerLike.appendChild(buttonLike);
+  containerLike.appendChild(contador);
   containerPost.appendChild(titlePublicacion);
   containerPost.appendChild(descriptionPublicacion);
-  containerPost.appendChild(buttonLike);
+  containerPost.appendChild(containerLike);
+  
   //data.appendChild(containerPost);
   data.appendChild(containerPost);
 })
