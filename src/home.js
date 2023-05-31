@@ -23,7 +23,7 @@ function mostrarpost(posts){
 
   posts.forEach ((post) =>{
   
-     
+   // TODO no se ve la ultima publicacion   
   const  containerPost= document.createElement('div');
   containerPost.setAttribute("class", "containerPost")
 
@@ -38,13 +38,19 @@ function mostrarpost(posts){
   //like //cambios para clai
   const containerLike = document.createElement('div');
   containerLike.setAttribute("class", "containerLike");
+  const contador = document.createElement('p');
+  contador.setAttribute("class", "contador");
+  contador.innerHTML = '0';
   const buttonLike = document.createElement('button')
   buttonLike.setAttribute("class", "buttonLike");
   buttonLike.innerHTML= '<img class="imgChef" src="./imagenes/chef.png" >'
   
+  containerLike.appendChild(buttonLike);
+  containerLike.appendChild(contador);
   containerPost.appendChild(titlePublicacion);
   containerPost.appendChild(descriptionPublicacion);
-  containerPost.appendChild(buttonLike);
+  containerPost.appendChild(containerLike);
+  
   //data.appendChild(containerPost);
   data.appendChild(containerPost);
 })

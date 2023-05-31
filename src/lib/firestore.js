@@ -6,7 +6,6 @@ export async function saveTask(titulo, descripcion){
   try {
     const postRef = collection(db, "post"); 
     await setDoc(doc(postRef),{
-      //name: nombre,
       title: titulo,
       description: descripcion
     });
@@ -17,19 +16,6 @@ export async function saveTask(titulo, descripcion){
   }
 
   
-
-  /*export async function obtenerData() {
-    const collectionRef = collection(db, "post");
-    const querySnapshot = await getDocs(collectionRef);  // en la funcion asyncrona con getdoc obtenemos pla promesa
-  
-    const allData = []; // array para poner los datos 
-  
-    querySnapshot.forEach((doc) => {
-      allData.push(doc.data()); // cpn push vamos agregando los dato al array
-    });
-  
-    return allData;
-  }*/
 
   export function obtenerData2(callback){
      onSnapshot(collection(db, "post"), (snapshot) => {
