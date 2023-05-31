@@ -38,7 +38,8 @@ function mostrarpost(posts){
     option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >'
     containerPost.appendChild(option);
 
-   const buttonDelete = document.createElement('button')
+   const buttonDelete = document.createElement('button');
+   buttonDelete.setAttribute('class', 'buttonDelete');
    buttonDelete.setAttribute('id', 'buttonDelete');
    buttonDelete.innerHTML = 'borrar';
    buttonDelete.setAttribute("style", "display:none");
