@@ -33,7 +33,10 @@ function mostrarpost(posts){
   const user = auth.currentUser; 
 
   if (post.userId === user.uid ){
-    
+    const option = document.createElement('button');
+    option.setAttribute('class', option);
+    option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >'
+    containerPost.appendChild(option);
   }
 
   const titlePublicacion = document.createElement('h2');
