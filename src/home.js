@@ -1,7 +1,8 @@
 import { getAuth } from "firebase/auth";
-import { doc } from "firebase/firestore";
+// import { getDocs, collection } from "firebase/firestore";
+// import { db } from './lib/firebase.js';
 import { header } from './contents.js';
-import { obtenerData2, borrarPublicacion } from './lib/firestore.js';
+import { borrarPublicacion, postData } from './lib/firestore.js';
 
 export function home(navigateTo) {
   const nodehome = document.createElement('div');
@@ -16,12 +17,13 @@ export function home(navigateTo) {
   botonPalta.setAttribute('id', 'palta');
 
   /* ------------------ DIV DE PUBLICACIONES ------------------*/
-  function mostrarpost(posts) {
-    console.log('ultimo console', posts);
+  postData((querySnapshot) => {
+    nodehome.innerHTML = '';
     const data = document.createElement('div');
     data.setAttribute('id', 'postData');
+    querySnapshot.forEach((publicacion) => {
+      console.log('ultimo console', publicacion.id);
 
-    posts.forEach((post) => {
       // validacion para el boton de borrar
 
       const containerPost = document.createElement('div');
@@ -32,15 +34,18 @@ export function home(navigateTo) {
       const auth = getAuth();
       const user = auth.currentUser;
 
-      if (post.userId === user.uid) {
+      if (publicacion.data().userId === user.uid) {
+        console.log(` user.id${user.uid}`);
+        console.log(` user.id${publicacion.data().userId}`);
         const option = document.createElement('button');
         option.setAttribute('class', 'option');
         option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >';
         containerPost.appendChild(option);
 
-        const postid = doc.id;
-        console.log(`aqui tenemos postid?${postid}`);
-        // postid.id = doc.id;
+        // let postid = getDocs(collection(db, 'post'));
+        // console.log(`aqui tenemos postid?${postid}`);
+        // postid = post.id;
+        // console.log(`post.id${publicacion.id}`);
         const buttonDelete = document.createElement('button');
         // buttonDelete.setAttribute('id', `${postid.id}`);
         buttonDelete.setAttribute('class', 'buttonDelete');
@@ -57,19 +62,22 @@ export function home(navigateTo) {
           }
         });
         buttonDelete.addEventListener('click', () => {
+          // console.log(`tenemosid?(JSON.stringifi()${postid})`);
+          // console.log(JSON.stringify(postid));
           // const vamoABorrarTodo = document.getElementById('buttonDelete');
-          borrarPublicacion(postid);
+          borrarPublicacion(publicacion.id);
         });
       }
 
       const titlePublicacion = document.createElement('h2');
       titlePublicacion.setAttribute('class', 'titlePublicacion');
 
-      titlePublicacion.innerHTML = post.title;
+      titlePublicacion.innerHTML = publicacion.data().title;
+      // console.log(`post fuera de todo${JSON.stringify(publicacion)}`);
 
       const descriptionPublicacion = document.createElement('p');
       descriptionPublicacion.setAttribute('class', 'descriptionPublicacion');
-      descriptionPublicacion.innerHTML = post.description;
+      descriptionPublicacion.innerHTML = publicacion.data().description;
       // like //cambios para clai
       const containerLike = document.createElement('div');
       containerLike.setAttribute('class', 'containerLike');
@@ -93,8 +101,7 @@ export function home(navigateTo) {
     nodehome.appendChild(theHeader);
     nodehome.appendChild(data);
     nodehome.appendChild(contenedorMenu);
-  }
-  obtenerData2(mostrarpost);
+  });
 
   /*----------------------------------------------------*/
 
