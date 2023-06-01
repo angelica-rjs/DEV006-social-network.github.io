@@ -376,3 +376,7 @@ small {
   display: flex;
   align-items: end;
 }
+
+.buttonDelete{
+  margin: 0;
+}

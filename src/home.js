@@ -35,14 +35,17 @@ export function home(navigateTo) {
         option.setAttribute('class', 'option');
         option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >';
         containerPost.appendChild(option);
-
+        
+        
         const buttonDelete = document.createElement('button');
+        buttonDelete.setAttribute('class', 'buttonDelete');
         buttonDelete.setAttribute('id', 'buttonDelete');
         buttonDelete.innerHTML = 'borrar';
         buttonDelete.setAttribute('style', 'display:none');
         option.appendChild(buttonDelete);
 
         option.addEventListener('click', () => {
+        
           const valideitor = document.getElementById('buttonDelete');
           if (valideitor.style.display === 'none') {
             valideitor.style.display = 'block';
@@ -50,7 +53,12 @@ export function home(navigateTo) {
             valideitor.style.display = 'none';
           }
         });
+
+        buttonDelete.addEventListener('click', ()=>{
+         // console.log(post.doc())
+        })
       }
+
 
       const titlePublicacion = document.createElement('h2');
       titlePublicacion.setAttribute('class', 'titlePublicacion')
