@@ -1,96 +1,51 @@
+import { collection, doc, setDoc, onSnapshot, deleteDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { db } from './firebase';
-import { collection, doc, setDoc, getDocs, onSnapshot } from "firebase/firestore";
 
-export async function saveTask(titulo, descripcion){
-  console.log(titulo, descripcion)
+export async function saveTask(titulo, descripcion) {
+  console.log(titulo, descripcion);
+
+  const auth = getAuth(); // Obtener la instancia de autenticación de Firebase
+
   try {
-    const postRef = collection(db, "post"); 
-    await setDoc(doc(postRef),{
-      //name: nombre,
+    const postRef = collection(db, 'post');
+    const user = auth.currentUser; // Obtener el usuario autenticado
+
+    await setDoc(doc(postRef), {
+      userId: user.uid, // Agregar el ID del usuario autenticado
       title: titulo,
-      description: descripcion
+      description: descripcion,
     });
-    console.log("Document written with ID: ", postRef.id);
+
+    console.log('Document written with ID: ', postRef.id);
   } catch (e) {
-    console.error("Error adding document: ", e);
+    console.error('Error adding document: ', e);
   }
-  }
+}
 
-  
-
-  /*export async function obtenerData() {
-    const collectionRef = collection(db, "post");
-    const querySnapshot = await getDocs(collectionRef);  // en la funcion asyncrona con getdoc obtenemos pla promesa
-  
-    const allData = []; // array para poner los datos 
-  
-    querySnapshot.forEach((doc) => {
-      allData.push(doc.data()); // cpn push vamos agregando los dato al array
+export function obtenerData2(callback) {
+  onSnapshot(collection(db, 'post'), (snapshot) => {
+    const posts = [];
+    snapshot.forEach((doc) => {
+      posts.push(doc.data());
     });
-  
-    return allData;
-  }*/
+    callback(posts);
+  });
+}
 
-  export function obtenerData2(callback){
-     onSnapshot(collection(db, "post"), (snapshot) => {
-      const posts = []; // array para poner los datos 
-      snapshot.forEach((doc) => {
-        posts.push(doc.data()); // cpn push vamos agregando los dato al array
-      });
-      callback(posts)
-     } );
-     
-  }
+export async function borrarPublicacion(id) {
+  // await db.collection('post').doc(id).delete();
+  await deleteDoc(doc(db, 'post', id));
+  // const borrarEnFirebase = await collection(db, 'post').doc(id).deleteDoc();
+  // console.log(`borrar en firebase${borrarEnFirebase}`);
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*export async function dataUser (mail, name, password){
+/*export async function borrarPublicacion(id) {
   try {
-    const docRef = await addDoc(collection(db, "users"), {
-      nombre: name,
-      correo: mail,
-      contraseña: password
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
+    const docRef = doc(db, 'post', id);
+    await deleteDoc(docRef);
+    console.log('La publicación se ha eliminado correctamente en Firestore');
+  } catch (error) {
+    console.error('Error al intentar borrar la publicación en Firestore:', error);
   }
-  const querySnapshot = await getDocs(collection(db, "users"));
-  querySnapshot.forEach((doc) => {
-  console.log(`${doc.id} => ${doc.data()}`);
-});
-
 }*/

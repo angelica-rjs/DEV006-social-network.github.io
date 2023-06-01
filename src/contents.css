@@ -360,11 +360,11 @@ small {
   height: 20px;
 }
 
-.containerLike{
+ .containerLike{
   display: flex;
-  background-color: #32324d;
+  background-color: #9090c9;
   height: 20%;
-  width: 30%;
+  width: 25%;
 }
 
 .imgChef{
@@ -372,7 +372,7 @@ small {
   width: 100%;
 }
 
-.buttonLike{
-  height: 2%;
-  width: 15%;
+.contador{
+  display: flex;
+  align-items: end;
 }
