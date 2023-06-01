@@ -29,28 +29,41 @@ export function home(navigateTo) {
       // validacion para el boton de borrar
       const auth = getAuth();
       const user = auth.currentUser;
-
+        
+      
       if (post.userId === user.uid) {
         const option = document.createElement('button');
+
+      
         option.setAttribute('class', 'option');
         option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >';
         containerPost.appendChild(option);
 
         const buttonDelete = document.createElement('button');
-        buttonDelete.setAttribute('id', 'buttonDelete');
+        
+        buttonDelete.setAttribute('class', 'buttonDelete');
         buttonDelete.innerHTML = 'borrar';
         buttonDelete.setAttribute('style', 'display:none');
         option.appendChild(buttonDelete);
 
+
+        
+      
+
         option.addEventListener('click', () => {
-          const valideitor = document.getElementById('buttonDelete');
+          const valideitor = option.querySelector('.buttonDelete');
           if (valideitor.style.display === 'none') {
             valideitor.style.display = 'block';
           } else {
             valideitor.style.display = 'none';
           }
-        });
-      }
+        }); buttonDelete.addEventListener('click', () => {
+          console.log('Borrando publicacion', buttonDelete);
+            
+        })
+      }  
+    
+    
 
       const titlePublicacion = document.createElement('h2');
       titlePublicacion.setAttribute('class', 'titlePublicacion')
