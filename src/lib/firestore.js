@@ -1,6 +1,6 @@
-import { collection, doc, setDoc, onSnapshot, deleteDoc } from "firebase/firestore";
+import { collection, doc, setDoc, onSnapshot, deleteDoc, query, orderBy } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { db } from './firebase';
+import { db, colRef } from './firebase';
 
 export async function saveTask(titulo, descripcion) {
   console.log(titulo, descripcion);
@@ -23,24 +23,28 @@ export async function saveTask(titulo, descripcion) {
   }
 }
 
-export function obtenerData2(callback) {
+/*export function obtenerData2(callback) {
   onSnapshot(collection(db, 'post'), (snapshot) => {
     const posts = [];
     snapshot.forEach((doc) => {
       posts.push(doc.data());
+      console.log(`doc.id${doc.id}`);
     });
     callback(posts);
   });
-}
+}*/
 
-export async function borrarPublicacion(id) {
+const orderedQuery = query(colRef, orderBy('timestamp', 'desc'));
+export const postData = (callback) => onSnapshot(query(colRef), callback);
+
+/*export async function borrarPublicacion(id) {
   // await db.collection('post').doc(id).delete();
   await deleteDoc(doc(db, 'post', id));
   // const borrarEnFirebase = await collection(db, 'post').doc(id).deleteDoc();
   // console.log(`borrar en firebase${borrarEnFirebase}`);
-}
+}*/
 
-/*export async function borrarPublicacion(id) {
+export async function borrarPublicacion(id) {
   try {
     const docRef = doc(db, 'post', id);
     await deleteDoc(docRef);
@@ -48,4 +52,4 @@ export async function borrarPublicacion(id) {
   } catch (error) {
     console.error('Error al intentar borrar la publicación en Firestore:', error);
   }
-}*/
+}
