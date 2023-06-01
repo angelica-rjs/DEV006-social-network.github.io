@@ -1,4 +1,4 @@
-import { collection, doc, setDoc, onSnapshot } from "firebase/firestore";
+import { collection, doc, setDoc, onSnapshot, deleteDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db } from './firebase';
 
@@ -33,7 +33,19 @@ export function obtenerData2(callback) {
   });
 }
 
-
-export function eliminarPost (){
-  
+export async function borrarPublicacion(id) {
+  // await db.collection('post').doc(id).delete();
+  await deleteDoc(doc(db, 'post', id));
+  // const borrarEnFirebase = await collection(db, 'post').doc(id).deleteDoc();
+  // console.log(`borrar en firebase${borrarEnFirebase}`);
 }
+
+/*export async function borrarPublicacion(id) {
+  try {
+    const docRef = doc(db, 'post', id);
+    await deleteDoc(docRef);
+    console.log('La publicación se ha eliminado correctamente en Firestore');
+  } catch (error) {
+    console.error('Error al intentar borrar la publicación en Firestore:', error);
+  }
+}*/

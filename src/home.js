@@ -1,6 +1,7 @@
-import { header } from './contents.js';
-import { obtenerData2 } from './lib/firestore.js';
 import { getAuth } from "firebase/auth";
+import { doc } from "firebase/firestore";
+import { header } from './contents.js';
+import { obtenerData2, borrarPublicacion } from './lib/firestore.js';
 
 export function home(navigateTo) {
   const nodehome = document.createElement('div');
@@ -25,6 +26,7 @@ export function home(navigateTo) {
 
       const containerPost = document.createElement('div');
       containerPost.setAttribute('class', 'containerPost');
+      containerPost.setAttribute('id', 'containerPostid');
 
       // validacion para el boton de borrar
       const auth = getAuth();
@@ -39,7 +41,11 @@ export function home(navigateTo) {
         option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >';
         containerPost.appendChild(option);
 
+        const postid = doc.id;
+        console.log(`aqui tenemos postid?${postid}`);
+        // postid.id = doc.id;
         const buttonDelete = document.createElement('button');
+        // buttonDelete.setAttribute('id', `${postid.id}`);
         buttonDelete.setAttribute('class', 'buttonDelete');
         buttonDelete.innerHTML = 'borrar';
         buttonDelete.setAttribute('style', 'display:none');
@@ -53,16 +59,15 @@ export function home(navigateTo) {
           } else {
             valideitor.style.display = 'none';
           }
-        }); buttonDelete.addEventListener('click', () => {
-          console.log('Borrando publicacion', buttonDelete);
-            
-        })
-      }  
-    
-    
+        });
+        buttonDelete.addEventListener('click', () => {
+          // const vamoABorrarTodo = document.getElementById('buttonDelete');
+          borrarPublicacion(postid);
+        });
+      }
 
       const titlePublicacion = document.createElement('h2');
-      titlePublicacion.setAttribute('class', 'titlePublicacion')
+      titlePublicacion.setAttribute('class', 'titlePublicacion');
 
       titlePublicacion.innerHTML = post.title;
 
