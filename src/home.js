@@ -40,15 +40,11 @@ export function home(navigateTo) {
         containerPost.appendChild(option);
 
         const buttonDelete = document.createElement('button');
-        
         buttonDelete.setAttribute('class', 'buttonDelete');
         buttonDelete.innerHTML = 'borrar';
         buttonDelete.setAttribute('style', 'display:none');
         option.appendChild(buttonDelete);
 
-
-        
-      
 
         option.addEventListener('click', () => {
           const valideitor = option.querySelector('.buttonDelete');
