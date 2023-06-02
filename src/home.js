@@ -3,6 +3,8 @@ import { getAuth } from "firebase/auth";
 // import { db } from './lib/firebase.js';
 import { header } from './contents.js';
 import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from './lib/firestore.js';
+import { doc } from "firebase/firestore";
+import { modal } from "./modal.js";
 
 export function home(navigateTo) {
   const nodehome = document.createElement('div');
@@ -21,6 +23,7 @@ export function home(navigateTo) {
     nodehome.innerHTML = '';
     const data = document.createElement('div');
     data.setAttribute('id', 'postData');
+    data.setAttribute('class', 'postData');
     querySnapshot.forEach((publicacion) => {
       // console.log('publicacion.id ', publicacion.id);
 
@@ -34,51 +37,106 @@ export function home(navigateTo) {
       const user = auth.currentUser;
 
       if (publicacion.data().userId === user.uid) {
-        // console.log(` user.id${user.uid}`);
-        // console.log(` user.id${publicacion.data().userId}`);
+        //boton 3 puntitus 
         const option = document.createElement('button');
         option.setAttribute('class', 'option');
-        option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >';
+        option.innerHTML = '<img class="imgDots" src="./imagenes/option.png" >';
         containerPost.appendChild(option);
 
+        //contenedor para los botones 
+        const contenedorBotones = document.createElement('div');
+        contenedorBotones.setAttribute('class', 'contenedorBotones');
+        contenedorBotones.setAttribute('style', 'display:none');
+        option.appendChild(contenedorBotones);
+
+        //boton borrar
         const buttonDelete = document.createElement('button');
         buttonDelete.setAttribute('class', 'buttonDelete');
         buttonDelete.innerHTML = 'borrar';
         buttonDelete.setAttribute('style', 'display:none');
-        option.appendChild(buttonDelete);
+        contenedorBotones.appendChild(buttonDelete);
 
+
+
+        //boton editar        
         const buttonEdit = document.createElement('button');
         buttonEdit.setAttribute('class', 'buttonEdit');
         buttonEdit.innerHTML = 'editar';
         buttonEdit.setAttribute('style', 'display:none');
-        option.appendChild(buttonEdit);
+        contenedorBotones.appendChild(buttonEdit);
+
 
         option.addEventListener('click', () => {
-          const valideitorDelete = option.querySelector('.buttonDelete');
-          if (valideitorDelete.style.display === 'none') {
-            valideitorDelete.style.display = 'block';
+          console.log ("estoy en el option")
+
+          //valida el contenedor de los botones
+          const valideitorBotones = option.querySelector('.contenedorBotones');
+          if (valideitorBotones.style.display === 'none') {
+            valideitorBotones.style.display = 'block';
           } else {
-            valideitorDelete.style.display = 'none';
+            valideitorBotones.style.display = 'none';
           }
-          buttonDelete.addEventListener('click', () => {
-            // console.log(`tenemosid?(JSON.stringifi()${postid})`);
-            borrarPublicacion(publicacion.id);
+          buttonEdit.addEventListener('click', () => {
+            console.log("estoy en edit")
+            valideitorBotones.style.display = 'block';
           });
+        });
+
+        //validaciones delete
+        const valideitorBotonDelete = option.querySelector('.buttonDelete');
+          if (valideitorBotonDelete.style.display === 'none') {
+            valideitorBotonDelete.style.display = 'block';
+          } else {
+            valideitorBotonDelete.style.display = 'none';
+          }
+          //delete 
+          buttonDelete.addEventListener('click', () => {
+            const modalDelete = document.createElement('div');
+            modalDelete.setAttribute('class', 'modalDelete');
+       
+
+            const confirmation = document.createElement('p');
+            confirmation.innerHTML = '¿Esta seguro que desea eliminar la publicación?';
+            confirmation.setAttribute('class', 'pModal');
+            modalDelete.appendChild(confirmation);
+
+            const buttonConfirmar = document.createElement('button');
+            buttonConfirmar.setAttribute('class', 'buttonConfirmar');
+            buttonConfirmar.innerHTML = 'SI'
+            modalDelete.appendChild(buttonConfirmar);
+
+            const buttonNo = document.createElement('button');
+            buttonNo.setAttribute('class', 'buttonConfirmar');
+            buttonNo.innerHTML = 'NO'
+            modalDelete.appendChild(buttonNo);
+            nodehome.appendChild(modalDelete);
+          
+
+            buttonConfirmar.addEventListener('click', () => {
+              borrarPublicacion(publicacion.id);
+            })
+
+            buttonNo.addEventListener('click', () => {
+              navigateTo('/home');
+            })
+          });
+
+
+
+          //validaciones edit 
           const valideitorEdit = option.querySelector('.buttonEdit');
           if (valideitorEdit.style.display === 'none') {
             valideitorEdit.style.display = 'block';
           } else {
             valideitorEdit.style.display = 'none';
           }
-          buttonEdit.addEventListener('click', () => {
-            // borrarPublicacion(publicacion.id);
-          });
-        });
+         
       }
+
+
       const titlePublicacion = document.createElement('h2');
       titlePublicacion.setAttribute('class', 'titlePublicacion');
       titlePublicacion.innerHTML = publicacion.data().title;
-      // console.log(`post fuera de todo${JSON.stringify(publicacion)}`);
 
       const descriptionPublicacion = document.createElement('p');
       descriptionPublicacion.setAttribute('class', 'descriptionPublicacion');
@@ -92,30 +150,11 @@ export function home(navigateTo) {
 
       const buttonLike = document.createElement('button');
       buttonLike.setAttribute('class', 'buttonLike');
-      buttonLike.setAttribute('id', 'buttonLikeid1');
-
+      buttonLike.setAttribute('id', `${publicacion.data().id}`);
 
       buttonLike.innerHTML = '<img class="imgChef" src="./imagenes/chef.png" >';
 
-      /*let valideitorContadorlike = parseInt(localStorage.getItem('valideitorContadorlike'), 10) || 0;
-
-      buttonLike.addEventListener('click', () => {
-        valideitorContadorlike++;
-        console.log(valideitorContadorlike);
-
-        if (valideitorContadorlike % 2 === 1) {
-          likePublicacion(publicacion.id);
-          console.log(`dentro del if validaitor${valideitorContadorlike}`);
-          valideitorContadorlike++;
-          // buttonLike.setAttribute('id', 'buttonLikeid2');
-        } else if (valideitorContadorlike % 2 === 0) {
-          dislikePublicacion(publicacion.id);
-          // valideitorLike = 'false';
-        }
-        localStorage.setItem('contador', contador.toString());
-      });*/
-
-      let isLiked = localStorage.getItem('isLiked') === 'true';
+      let isLiked = localStorage.getItem(`isLiked_${publicacion.id}`) === 'true';
 
       buttonLike.addEventListener('click', () => {
         if (isLiked) {
@@ -126,9 +165,8 @@ export function home(navigateTo) {
           isLiked = true;
         }
 
-        localStorage.setItem('isLiked', isLiked.toString());
+        localStorage.setItem(`isLiked_${publicacion.id}`, isLiked.toString());
       });
-
 
       containerLike.appendChild(buttonLike);
       containerLike.appendChild(contador);
