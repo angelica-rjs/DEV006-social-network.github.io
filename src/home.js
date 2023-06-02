@@ -97,7 +97,7 @@ export function home(navigateTo) {
 
       buttonLike.innerHTML = '<img class="imgChef" src="./imagenes/chef.png" >';
 
-      let valideitorContadorlike = 0;
+      /*let valideitorContadorlike = parseInt(localStorage.getItem('valideitorContadorlike'), 10) || 0;
 
       buttonLike.addEventListener('click', () => {
         valideitorContadorlike++;
@@ -112,7 +112,23 @@ export function home(navigateTo) {
           dislikePublicacion(publicacion.id);
           // valideitorLike = 'false';
         }
+        localStorage.setItem('contador', contador.toString());
+      });*/
+
+      let isLiked = localStorage.getItem('isLiked') === 'true';
+
+      buttonLike.addEventListener('click', () => {
+        if (isLiked) {
+          dislikePublicacion(publicacion.id);
+          isLiked = false;
+        } else {
+          likePublicacion(publicacion.id);
+          isLiked = true;
+        }
+
+        localStorage.setItem('isLiked', isLiked.toString());
       });
+
 
       containerLike.appendChild(buttonLike);
       containerLike.appendChild(contador);
