@@ -36,60 +36,72 @@ export function home(navigateTo) {
       const user = auth.currentUser;
 
       if (publicacion.data().userId === user.uid) {
-        // console.log(` user.id${user.uid}`);
-        // console.log(` user.id${publicacion.data().userId}`);
+        //boton 3 puntitus 
         const option = document.createElement('button');
-
-
         option.setAttribute('class', 'option');
         option.innerHTML = '<img class="imgDots" src="./imagenes/option.png" >';
         containerPost.appendChild(option);
 
+        //contenedor para los botones 
         const contenedorBotones = document.createElement('div');
         contenedorBotones.setAttribute('class', 'contenedorBotones');
         contenedorBotones.setAttribute('style', 'display:none');
         option.appendChild(contenedorBotones);
 
+        //boton borrar
         const buttonDelete = document.createElement('button');
         buttonDelete.setAttribute('class', 'buttonDelete');
         buttonDelete.innerHTML = 'borrar';
-        // buttonDelete.setAttribute('style', 'display:none');
+        buttonDelete.setAttribute('style', 'display:none');
         contenedorBotones.appendChild(buttonDelete);
 
+        //boton editar        
         const buttonEdit = document.createElement('button');
         buttonEdit.setAttribute('class', 'buttonEdit');
         buttonEdit.innerHTML = 'editar';
-        // buttonEdit.setAttribute('style', 'display:none');
+        buttonEdit.setAttribute('style', 'display:none');
         contenedorBotones.appendChild(buttonEdit);
 
+
         option.addEventListener('click', () => {
+          console.log ("estoy en el option")
+
+          //valida el contenedor de los botones
           const valideitorBotones = option.querySelector('.contenedorBotones');
           if (valideitorBotones.style.display === 'none') {
             valideitorBotones.style.display = 'block';
           } else {
             valideitorBotones.style.display = 'none';
           }
-          /*const valideitorBotonDelete = option.querySelector('.buttonDelete');
+          buttonEdit.addEventListener('click', () => {
+            console.log("estoy en edit")
+            valideitorBotones.style.display = 'block';
+          });
+        });
+
+        //validaciones delete
+        const valideitorBotonDelete = option.querySelector('.buttonDelete');
           if (valideitorBotonDelete.style.display === 'none') {
             valideitorBotonDelete.style.display = 'block';
           } else {
             valideitorBotonDelete.style.display = 'none';
-          }*/
+          }
+          //delete 
           buttonDelete.addEventListener('click', () => {
-            // console.log(`tenemosid?(JSON.stringifi()${postid})`);
             borrarPublicacion(publicacion.id);
           });
-          /*const valideitorEdit = option.querySelector('.buttonEdit');
+
+          //validaciones edit 
+          const valideitorEdit = option.querySelector('.buttonEdit');
           if (valideitorEdit.style.display === 'none') {
             valideitorEdit.style.display = 'block';
           } else {
             valideitorEdit.style.display = 'none';
-          }*/
-          buttonEdit.addEventListener('click', () => {
-            // borrarPublicacion(publicacion.id);
-          });
-        });
+          }
+         
       }
+
+
       const titlePublicacion = document.createElement('h2');
       titlePublicacion.setAttribute('class', 'titlePublicacion');
       titlePublicacion.innerHTML = publicacion.data().title;
