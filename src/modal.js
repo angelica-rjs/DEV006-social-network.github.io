@@ -73,9 +73,13 @@ export function modal(navigateTo) {
     console.log(titulo);
     let descripcion = document.getElementById('inputDescriptionId').value;
     console.log(descripcion);
-    navigateTo('/home');
-    saveTask(titulo, descripcion);
 
+       const currentDate = new Date();
+       const timestamp = currentDate.toISOString();
+
+    navigateTo('/home');
+    saveTask(titulo, descripcion, timestamp);
+    
 
   });
   return cuepoModal;
