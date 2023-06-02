@@ -35,6 +35,9 @@ export function singUp(navigateTo) {
     const emailRegistro = document.getElementById('emailRegistro').value;
     const nameRegistro = document.getElementById('nameRegistro').value;
     const passwordRegistro = document.getElementById('passwordRegistro').value;
+    console.log(nameRegistro, "name registro")
+    if ( nameRegistro !== ""){
+      console.log(nameRegistro, "name registro en if")
     registrar(emailRegistro, passwordRegistro).then((user) => {
       console.log(user, 'singUp');
       if (user !== null) {
@@ -45,7 +48,12 @@ export function singUp(navigateTo) {
       console.log(errorMessage, 'singUp');
       alert('Correo o contraseña no es válida');
     });
+  }else{
+    console.log(nameRegistro, "name registro en else")
+    alert("debe ingresar name") 
+  }
   });
+  
 
   // addEventLitener de boton google
   botonGoogle.addEventListener('click', () => {
