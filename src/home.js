@@ -3,6 +3,7 @@ import { getAuth } from "firebase/auth";
 // import { db } from './lib/firebase.js';
 import { header } from './contents.js';
 import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from './lib/firestore.js';
+import { doc } from "firebase/firestore";
 
 export function home(navigateTo) {
   const nodehome = document.createElement('div');
@@ -39,40 +40,51 @@ export function home(navigateTo) {
         // console.log(` user.id${publicacion.data().userId}`);
         const option = document.createElement('button');
 
-      
+
         option.setAttribute('class', 'option');
-        option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >';
+        option.innerHTML = '<img class="imgDots" src="./imagenes/option.png" >';
         containerPost.appendChild(option);
+
+        const contenedorBotones = document.createElement('div');
+        contenedorBotones.setAttribute('class', 'contenedorBotones');
+        contenedorBotones.setAttribute('style', 'display:none');
+        option.appendChild(contenedorBotones);
 
         const buttonDelete = document.createElement('button');
         buttonDelete.setAttribute('class', 'buttonDelete');
         buttonDelete.innerHTML = 'borrar';
-        buttonDelete.setAttribute('style', 'display:none');
-        option.appendChild(buttonDelete);
+        // buttonDelete.setAttribute('style', 'display:none');
+        contenedorBotones.appendChild(buttonDelete);
 
         const buttonEdit = document.createElement('button');
         buttonEdit.setAttribute('class', 'buttonEdit');
         buttonEdit.innerHTML = 'editar';
-        buttonEdit.setAttribute('style', 'display:none');
-        option.appendChild(buttonEdit);
+        // buttonEdit.setAttribute('style', 'display:none');
+        contenedorBotones.appendChild(buttonEdit);
 
         option.addEventListener('click', () => {
-          const valideitorDelete = option.querySelector('.buttonDelete');
-          if (valideitorDelete.style.display === 'none') {
-            valideitorDelete.style.display = 'block';
+          const valideitorBotones = option.querySelector('.contenedorBotones');
+          if (valideitorBotones.style.display === 'none') {
+            valideitorBotones.style.display = 'block';
           } else {
-            valideitorDelete.style.display = 'none';
+            valideitorBotones.style.display = 'none';
           }
+          /*const valideitorBotonDelete = option.querySelector('.buttonDelete');
+          if (valideitorBotonDelete.style.display === 'none') {
+            valideitorBotonDelete.style.display = 'block';
+          } else {
+            valideitorBotonDelete.style.display = 'none';
+          }*/
           buttonDelete.addEventListener('click', () => {
             // console.log(`tenemosid?(JSON.stringifi()${postid})`);
             borrarPublicacion(publicacion.id);
           });
-          const valideitorEdit = option.querySelector('.buttonEdit');
+          /*const valideitorEdit = option.querySelector('.buttonEdit');
           if (valideitorEdit.style.display === 'none') {
             valideitorEdit.style.display = 'block';
           } else {
             valideitorEdit.style.display = 'none';
-          }
+          }*/
           buttonEdit.addEventListener('click', () => {
             // borrarPublicacion(publicacion.id);
           });
@@ -97,26 +109,7 @@ export function home(navigateTo) {
       buttonLike.setAttribute('class', 'buttonLike');
       buttonLike.setAttribute('id', 'buttonLikeid1');
 
-
       buttonLike.innerHTML = '<img class="imgChef" src="./imagenes/chef.png" >';
-
-      /*let valideitorContadorlike = parseInt(localStorage.getItem('valideitorContadorlike'), 10) || 0;
-
-      buttonLike.addEventListener('click', () => {
-        valideitorContadorlike++;
-        console.log(valideitorContadorlike);
-
-        if (valideitorContadorlike % 2 === 1) {
-          likePublicacion(publicacion.id);
-          console.log(`dentro del if validaitor${valideitorContadorlike}`);
-          valideitorContadorlike++;
-          // buttonLike.setAttribute('id', 'buttonLikeid2');
-        } else if (valideitorContadorlike % 2 === 0) {
-          dislikePublicacion(publicacion.id);
-          // valideitorLike = 'false';
-        }
-        localStorage.setItem('contador', contador.toString());
-      });*/
 
       let isLiked = localStorage.getItem('isLiked') === 'true';
 
