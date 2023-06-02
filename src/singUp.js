@@ -11,7 +11,8 @@ export function singUp(navigateTo) {
   formularioVista2.innerHTML = ` <input class="inputFormulario" id="emailRegistro" type="mail" placeholder="CORREO ELECTRONICO"><small></small>
     <input class="inputFormulario" id="nameRegistro" type="text" placeholder="NOMBRE DE USARIO"><small></small>
     <input class="inputFormulario" id="passwordRegistro" type="password" placeholder="CONTRASEÑA"><small>Mínimo 6 caracteres</small>`;
-  // TODO especificacion contraseña
+
+    
   nodesingUp.appendChild(formularioVista2);
   // Boton registro
   const botonRegistro = document.createElement('div');
@@ -48,8 +49,16 @@ export function singUp(navigateTo) {
 
   // addEventLitener de boton google
   botonGoogle.addEventListener('click', () => {
-    // esta funcion es de controlador
-    registroGoogle();
+    registroGoogle().then((user) => {
+      console.log(user, 'singUp');
+      if (user !== null) {
+        console.log('estamos en if');
+        navigateTo('/welcome');
+      }
+    }).catch((errorMessage) => {
+      console.log(errorMessage, 'singUp');
+      alert('Correo o contraseña no es válida');
+    });
   });
   return nodesingUp;
 }
