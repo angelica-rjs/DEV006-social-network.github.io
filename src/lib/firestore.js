@@ -1,6 +1,6 @@
-import { collection, doc, setDoc, onSnapshot } from "firebase/firestore";
+import { collection, doc, setDoc, onSnapshot, deleteDoc, query, orderBy, updateDoc, increment } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { db } from './firebase';
+import { db, colRef } from './firebase';
 
 export async function saveTask(titulo, descripcion) {
   console.log(titulo, descripcion);
@@ -15,6 +15,7 @@ export async function saveTask(titulo, descripcion) {
       userId: user.uid, // Agregar el ID del usuario autenticado
       title: titulo,
       description: descripcion,
+      like: 0,
     });
 
     console.log('Document written with ID: ', postRef.id);
@@ -23,31 +24,53 @@ export async function saveTask(titulo, descripcion) {
   }
 }
 
-export function obtenerData2(callback) {
+/*export function obtenerData2(callback) {
   onSnapshot(collection(db, 'post'), (snapshot) => {
     const posts = [];
     snapshot.forEach((doc) => {
       posts.push(doc.data());
+      console.log(`doc.id${doc.id}`);
     });
     callback(posts);
   });
-}
-
-
-/*export async function dataUser (mail, name, password){
-try {
-  const docRef = await addDoc(collection(db, "users"), {
-    nombre: name,
-    correo: mail,
-    contraseña: password
-  });
-  console.log("Document written with ID: ", docRef.id);
-} catch (e) {
-  console.error("Error adding document: ", e);
-}
-const querySnapshot = await getDocs(collection(db, "users"));
-querySnapshot.forEach((doc) => {
-console.log(`${doc.id} => ${doc.data()}`);
-});
-
 }*/
+
+const orderedQuery = query(colRef, orderBy('timestamp', 'desc'));
+export const postData = (callback) => onSnapshot(query(colRef), callback);
+
+/*export async function borrarPublicacion(id) {
+  // await db.collection('post').doc(id).delete();
+  await deleteDoc(doc(db, 'post', id));
+  // const borrarEnFirebase = await collection(db, 'post').doc(id).deleteDoc();
+  // console.log(`borrar en firebase${borrarEnFirebase}`);
+}*/
+
+export async function borrarPublicacion(id) {
+  try {
+    const docRef = doc(db, 'post', id);
+    await deleteDoc(docRef);
+    console.log('La publicación se ha eliminado correctamente en Firestore');
+  } catch (error) {
+    console.error('Error al intentar borrar la publicación en Firestore:', error);
+  }
+}
+
+export async function likePublicacion(id) {
+  try {
+    const docRef = doc(db, 'post', id);
+    await updateDoc(docRef, { like: increment(1) });
+    console.log(`Se le dio like${updateDoc}`);
+  } catch (error) {
+    console.error('Error al intentardar like', error);
+  }
+}
+
+export async function dislikePublicacion(id) {
+  try {
+    const docRef = doc(db, 'post', id);
+    await updateDoc(docRef, { like: increment(-1) });
+    console.log(`Se le dio like${updateDoc}`);
+  } catch (error) {
+    console.error('Error al intentardar like', error);
+  }
+}

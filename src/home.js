@@ -1,6 +1,8 @@
-import { header } from './contents.js';
-import { obtenerData2 } from './lib/firestore.js';
 import { getAuth } from "firebase/auth";
+// import { getDocs, collection } from "firebase/firestore";
+// import { db } from './lib/firebase.js';
+import { header } from './contents.js';
+import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from './lib/firestore.js';
 
 export function home(navigateTo) {
   const nodehome = document.createElement('div');
@@ -15,22 +17,25 @@ export function home(navigateTo) {
   botonPalta.setAttribute('id', 'palta');
 
   /* ------------------ DIV DE PUBLICACIONES ------------------*/
-  function mostrarpost(posts) {
-    console.log('ultimo console', posts);
+  postData((querySnapshot) => {
+    nodehome.innerHTML = '';
     const data = document.createElement('div');
     data.setAttribute('id', 'postData');
+    querySnapshot.forEach((publicacion) => {
+      // console.log('publicacion.id ', publicacion.id);
 
-    posts.forEach((post) => {
-      // validacion para el boton de borrar
-
+      // contenedor universal de la publicación
       const containerPost = document.createElement('div');
       containerPost.setAttribute('class', 'containerPost');
+      containerPost.setAttribute('id', 'containerPostid');
 
-      // validacion para el boton de borrar
+      // current user
       const auth = getAuth();
       const user = auth.currentUser;
 
-      if (post.userId === user.uid) {
+      if (publicacion.data().userId === user.uid) {
+        // console.log(` user.id${user.uid}`);
+        // console.log(` user.id${publicacion.data().userId}`);
         const option = document.createElement('button');
         option.setAttribute('class', 'option');
         option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >';
@@ -39,44 +44,79 @@ export function home(navigateTo) {
         
         const buttonDelete = document.createElement('button');
         buttonDelete.setAttribute('class', 'buttonDelete');
-        buttonDelete.setAttribute('id', 'buttonDelete');
         buttonDelete.innerHTML = 'borrar';
         buttonDelete.setAttribute('style', 'display:none');
         option.appendChild(buttonDelete);
 
+        const buttonEdit = document.createElement('button');
+        buttonEdit.setAttribute('class', 'buttonEdit');
+        buttonEdit.innerHTML = 'editar';
+        buttonEdit.setAttribute('style', 'display:none');
+        option.appendChild(buttonEdit);
+
         option.addEventListener('click', () => {
-        
-          const valideitor = document.getElementById('buttonDelete');
-          if (valideitor.style.display === 'none') {
-            valideitor.style.display = 'block';
+          const valideitorDelete = option.querySelector('.buttonDelete');
+          if (valideitorDelete.style.display === 'none') {
+            valideitorDelete.style.display = 'block';
           } else {
-            valideitor.style.display = 'none';
+            valideitorDelete.style.display = 'none';
           }
+          buttonDelete.addEventListener('click', () => {
+            // console.log(`tenemosid?(JSON.stringifi()${postid})`);
+            borrarPublicacion(publicacion.id);
+          });
+          const valideitorEdit = option.querySelector('.buttonEdit');
+          if (valideitorEdit.style.display === 'none') {
+            valideitorEdit.style.display = 'block';
+          } else {
+            valideitorEdit.style.display = 'none';
+          }
+          buttonEdit.addEventListener('click', () => {
+            // borrarPublicacion(publicacion.id);
+          });
         });
 
         buttonDelete.addEventListener('click', ()=>{
          // console.log(post.doc())
         })
       }
-
-
       const titlePublicacion = document.createElement('h2');
-      titlePublicacion.setAttribute('class', 'titlePublicacion')
-
-      titlePublicacion.innerHTML = post.title;
+      titlePublicacion.setAttribute('class', 'titlePublicacion');
+      titlePublicacion.innerHTML = publicacion.data().title;
+      // console.log(`post fuera de todo${JSON.stringify(publicacion)}`);
 
       const descriptionPublicacion = document.createElement('p');
       descriptionPublicacion.setAttribute('class', 'descriptionPublicacion');
-      descriptionPublicacion.innerHTML = post.description;
-      // like //cambios para clai
+      descriptionPublicacion.innerHTML = publicacion.data().description;
+
       const containerLike = document.createElement('div');
       containerLike.setAttribute('class', 'containerLike');
       const contador = document.createElement('p');
       contador.setAttribute('class', 'contador');
-      contador.innerHTML = '0';
+      contador.innerHTML = publicacion.data().like;
+
       const buttonLike = document.createElement('button');
       buttonLike.setAttribute('class', 'buttonLike');
+      buttonLike.setAttribute('id', 'buttonLikeid1');
+
+
       buttonLike.innerHTML = '<img class="imgChef" src="./imagenes/chef.png" >';
+
+
+      let isLiked = localStorage.getItem('isLiked') === 'true';
+
+      buttonLike.addEventListener('click', () => {
+        if (isLiked) {
+          dislikePublicacion(publicacion.id);
+          isLiked = false;
+        } else {
+          likePublicacion(publicacion.id);
+          isLiked = true;
+        }
+
+        localStorage.setItem('isLiked', isLiked.toString());
+      });
+
 
       containerLike.appendChild(buttonLike);
       containerLike.appendChild(contador);
@@ -84,15 +124,13 @@ export function home(navigateTo) {
       containerPost.appendChild(descriptionPublicacion);
       containerPost.appendChild(containerLike);
 
-      // data.appendChild(containerPost);
       data.appendChild(containerPost);
     });
-    nodehome.innerHTML = '';
+
     nodehome.appendChild(theHeader);
     nodehome.appendChild(data);
     nodehome.appendChild(contenedorMenu);
-  }
-  obtenerData2(mostrarpost);
+  });
 
   /*----------------------------------------------------*/
 
@@ -105,7 +143,7 @@ export function home(navigateTo) {
   nodehome.appendChild(contenedorMenu);
 
   botonPalta.addEventListener('click', () => {
-    console.log('estamos en el addEvent');
+    // console.log('estamos en el addEvent');
     navigateTo('/post');
   });
 
