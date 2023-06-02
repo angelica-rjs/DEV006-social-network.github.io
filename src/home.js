@@ -4,6 +4,7 @@ import { getAuth } from "firebase/auth";
 import { header } from './contents.js';
 import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from './lib/firestore.js';
 import { doc } from "firebase/firestore";
+import { modal } from "./modal.js";
 
 export function home(navigateTo) {
   const nodehome = document.createElement('div');
@@ -55,6 +56,8 @@ export function home(navigateTo) {
         buttonDelete.setAttribute('style', 'display:none');
         contenedorBotones.appendChild(buttonDelete);
 
+
+
         //boton editar        
         const buttonEdit = document.createElement('button');
         buttonEdit.setAttribute('class', 'buttonEdit');
@@ -88,8 +91,37 @@ export function home(navigateTo) {
           }
           //delete 
           buttonDelete.addEventListener('click', () => {
-            borrarPublicacion(publicacion.id);
+            const modalDelete = document.createElement('div');
+            modalDelete.setAttribute('class', 'modalDelete');
+       
+
+            const confirmation = document.createElement('p');
+            confirmation.innerHTML = '¿Esta seguro que desea eliminar la publicación?';
+            confirmation.setAttribute('class', 'pModal');
+            modalDelete.appendChild(confirmation);
+
+            const buttonConfirmar = document.createElement('button');
+            buttonConfirmar.setAttribute('class', 'buttonConfirmar');
+            buttonConfirmar.innerHTML = 'SI'
+            modalDelete.appendChild(buttonConfirmar);
+
+            const buttonNo = document.createElement('button');
+            buttonNo.setAttribute('class', 'buttonConfirmar');
+            buttonNo.innerHTML = 'NO'
+            modalDelete.appendChild(buttonNo);
+            nodehome.appendChild(modalDelete);
+          
+
+            buttonConfirmar.addEventListener('click', () => {
+              borrarPublicacion(publicacion.id);
+            })
+
+            buttonNo.addEventListener('click', () => {
+              navigateTo('/home');
+            })
           });
+
+
 
           //validaciones edit 
           const valideitorEdit = option.querySelector('.buttonEdit');
