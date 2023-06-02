@@ -21,6 +21,7 @@ export function home(navigateTo) {
     nodehome.innerHTML = '';
     const data = document.createElement('div');
     data.setAttribute('id', 'postData');
+    data.setAttribute('class', 'postData');
     querySnapshot.forEach((publicacion) => {
       // console.log('publicacion.id ', publicacion.id);
 
@@ -37,6 +38,8 @@ export function home(navigateTo) {
         // console.log(` user.id${user.uid}`);
         // console.log(` user.id${publicacion.data().userId}`);
         const option = document.createElement('button');
+
+      
         option.setAttribute('class', 'option');
         option.innerHTML = '<img class="imgChef" src="./imagenes/option.png" >';
         containerPost.appendChild(option);

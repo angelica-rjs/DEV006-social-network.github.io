@@ -308,6 +308,7 @@ small {
   height: 30%;
 }
 
+
 .inputDescription{
   margin-top: 2%;
   width: 100%;
@@ -342,19 +343,22 @@ small {
   background-color: #81Bab4;
   width: 70%;
   height: 20%;
-  border: #32324d solid 1px; 
+  border-radius: 15px;
 }
 
 .titlePublicacion{
   display: flex;
+  margin-top: 10%;
   flex-direction: column ;
-  width: 90px;
+  width: 80%;
   height: 20px;
 
 }
 
 .descriptionPublicacion{
   display: flex;
+  margin-top: 30%;
+  margin: auto;
   flex-direction: column;
   width: 90px;
   height: 20px;
