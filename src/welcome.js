@@ -23,9 +23,10 @@ export function welcome(navigateTo) {
   buttonComenzar.classList = 'divBotonVista4';
   buttonComenzar.innerHTML = '<button class="botonesIniciales" type="button">COMENZAR</button>'
   nodewelcome.appendChild(buttonComenzar);
-  // TODO navigateTo('/home');
 
+ buttonComenzar.addEventListener('click', ()=>{
+  navigateTo('/home');
+ }) 
   return nodewelcome;
 }
 
-// export default welcome;

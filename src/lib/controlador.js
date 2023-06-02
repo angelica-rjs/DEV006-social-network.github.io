@@ -3,6 +3,7 @@ import {
   signInWithPopup, GoogleAuthProvider,
 } from 'firebase/auth';
 import { app } from './firebase';
+import { async } from 'regenerator-runtime';
 
 // registrarse con correo y contraseña
 export async function registrar(email, password) {
@@ -46,50 +47,36 @@ export async function iniciar(email, password) {
 }
 
 // registrarse con google
-export function registroGoogle() {
-  // TODO  validaciones 
-  const provider = new GoogleAuthProvider();
+export async function registroGoogle() {
+  const provider =  new GoogleAuthProvider();
   const auth = getAuth();
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
+  const result = await signInWithPopup(auth, provider)
+   try{
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
-      // The signed-in user info.
       const user = result.user;
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-      // limpiarContenedorUniversal();
-      // vista4();
-    })
-    .catch((error) => {
-      // Handle Errors here.
+      return user
+    }catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // The email of the user's account used.
       const email = error.customData.email;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
-    });
+      const credential = GoogleAuthProvider.credentialFromError(error)
+      throw errorMessage;
+    }
 }
 
 // iniciar sesion con google
-export function loginGoogle() {
+export async function loginGoogle() {
   // TODO  validaciones
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
-  signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
+  const result= await signInWithPopup(auth, provider)
+    try {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
-      // The signed-in user info.
       const user = result.user;
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-    })
-    .catch((error) => {
+    }
+    catch(error){
       // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -98,7 +85,7 @@ export function loginGoogle() {
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
-    });
+    };
 }
 
 // Solo se puede singIn con Google?
