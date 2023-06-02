@@ -24,26 +24,11 @@ export async function saveTask(titulo, descripcion) {
   }
 }
 
-/*export function obtenerData2(callback) {
-  onSnapshot(collection(db, 'post'), (snapshot) => {
-    const posts = [];
-    snapshot.forEach((doc) => {
-      posts.push(doc.data());
-      console.log(`doc.id${doc.id}`);
-    });
-    callback(posts);
-  });
-}*/
+
 
 const orderedQuery = query(colRef, orderBy('timestamp', 'desc'));
 export const postData = (callback) => onSnapshot(query(colRef), callback);
 
-/*export async function borrarPublicacion(id) {
-  // await db.collection('post').doc(id).delete();
-  await deleteDoc(doc(db, 'post', id));
-  // const borrarEnFirebase = await collection(db, 'post').doc(id).deleteDoc();
-  // console.log(`borrar en firebase${borrarEnFirebase}`);
-}*/
 
 export async function borrarPublicacion(id) {
   try {
@@ -59,7 +44,6 @@ export async function likePublicacion(id) {
   try {
     const docRef = doc(db, 'post', id);
     await updateDoc(docRef, { like: increment(1) });
-    console.log(`Se le dio like${updateDoc}`);
   } catch (error) {
     console.error('Error al intentardar like', error);
   }
@@ -69,7 +53,6 @@ export async function dislikePublicacion(id) {
   try {
     const docRef = doc(db, 'post', id);
     await updateDoc(docRef, { like: increment(-1) });
-    console.log(`Se le dio like${updateDoc}`);
   } catch (error) {
     console.error('Error al intentardar like', error);
   }

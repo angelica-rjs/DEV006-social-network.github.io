@@ -45,7 +45,15 @@ export function login(navigateTo) {
 
   // addEventLitener de boton google
   botonGoogle.addEventListener('click', () => {
-    loginGoogle();
+    loginGoogle().then((user) => {
+      console.log(user, 'iniciar');
+      if (user !== null) {
+        navigateTo('/home');
+      }
+    }).catch((errorMessage) => {
+      console.log(errorMessage, 'singUp');
+      alert('Usuario no registrado o contraseña incorrecta');
+    });
   });
   return nodelogin;
 }
