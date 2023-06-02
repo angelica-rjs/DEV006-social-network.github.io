@@ -2,7 +2,7 @@ import { getAuth } from "firebase/auth";
 // import { getDocs, collection } from "firebase/firestore";
 // import { db } from './lib/firebase.js';
 import { header } from './contents.js';
-import { borrarPublicacion, postData } from './lib/firestore.js';
+import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from './lib/firestore.js';
 
 export function home(navigateTo) {
   const nodehome = document.createElement('div');
@@ -88,10 +88,31 @@ export function home(navigateTo) {
       containerLike.setAttribute('class', 'containerLike');
       const contador = document.createElement('p');
       contador.setAttribute('class', 'contador');
-      contador.innerHTML = '0';
+      contador.innerHTML = publicacion.data().like;
+
       const buttonLike = document.createElement('button');
       buttonLike.setAttribute('class', 'buttonLike');
+      buttonLike.setAttribute('id', 'buttonLikeid1');
+
+
       buttonLike.innerHTML = '<img class="imgChef" src="./imagenes/chef.png" >';
+
+      let valideitorContadorlike = 0;
+
+      buttonLike.addEventListener('click', () => {
+        valideitorContadorlike++;
+        console.log(valideitorContadorlike);
+
+        if (valideitorContadorlike % 2 === 1) {
+          likePublicacion(publicacion.id);
+          console.log(`dentro del if validaitor${valideitorContadorlike}`);
+          valideitorContadorlike++;
+          // buttonLike.setAttribute('id', 'buttonLikeid2');
+        } else if (valideitorContadorlike % 2 === 0) {
+          dislikePublicacion(publicacion.id);
+          // valideitorLike = 'false';
+        }
+      });
 
       containerLike.appendChild(buttonLike);
       containerLike.appendChild(contador);
