@@ -43,12 +43,14 @@ export function singUp(navigateTo) {
       if (user !== null) {
         console.log('estamos en if');
         navigateTo('/welcome');
+      }else{
+        /*alert("no se logro autentificado")*/
       }
     }).catch((errorMessage) => {
       console.log(errorMessage, 'singUp');
       alert('Correo o contraseña no es válida');
     });
-  }else{
+    }else{
     console.log(nameRegistro, "name registro en else")
     alert("debe ingresar name") 
   }
@@ -67,6 +69,8 @@ export function singUp(navigateTo) {
       console.log(errorMessage, 'singUp');
       alert('Correo o contraseña no es válida');
     });
+    
   });
+
   return nodesingUp;
 }
