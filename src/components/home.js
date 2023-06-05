@@ -1,11 +1,10 @@
 import { getAuth } from "firebase/auth";
-// import { getDocs, collection } from "firebase/firestore";
-// import { db } from './lib/firebase.js';
-import { header } from './contents.js';
-import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from './lib/firestore.js';
-import { doc } from "firebase/firestore";
+import { header } from '../contents.js';
+import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from '../lib/firestore.js';
+
 
 export function home(navigateTo) {
+  
   const nodehome = document.createElement('div');
   const theHeader = header();
   nodehome.appendChild(theHeader);
@@ -13,9 +12,10 @@ export function home(navigateTo) {
   const contenedorMenu = document.createElement('div');
   contenedorMenu.setAttribute('class', 'contenedorMenu');
 
-  const botonPalta = document.createElement('button');
-  botonPalta.setAttribute('class', 'buttonPalta');
-  botonPalta.setAttribute('id', 'palta');
+   // current user
+   const auth = getAuth();
+   const user = auth.currentUser;
+  
 
   /* ------------------ DIV DE PUBLICACIONES ------------------*/
   postData((querySnapshot) => {
@@ -31,9 +31,7 @@ export function home(navigateTo) {
       containerPost.setAttribute('class', 'containerPost');
       containerPost.setAttribute('id', 'containerPostid');
 
-      // current user
-      const auth = getAuth();
-      const user = auth.currentUser;
+     
 
       if (publicacion.data().userId === user.uid) {
         //boton 3 puntitus 
@@ -54,6 +52,8 @@ export function home(navigateTo) {
         buttonDelete.innerHTML = 'borrar';
         buttonDelete.setAttribute('style', 'display:none');
         contenedorBotones.appendChild(buttonDelete);
+
+
 
         //boton editar        
         const buttonEdit = document.createElement('button');
@@ -88,8 +88,37 @@ export function home(navigateTo) {
           }
           //delete 
           buttonDelete.addEventListener('click', () => {
-            borrarPublicacion(publicacion.id);
+            const modalDelete = document.createElement('div');
+            modalDelete.setAttribute('class', 'modalDelete');
+       
+
+            const confirmation = document.createElement('p');
+            confirmation.innerHTML = '¿Esta seguro que desea eliminar la publicación?';
+            confirmation.setAttribute('class', 'pModal');
+            modalDelete.appendChild(confirmation);
+
+            const buttonConfirmar = document.createElement('button');
+            buttonConfirmar.setAttribute('class', 'buttonConfirmar');
+            buttonConfirmar.innerHTML = 'SI'
+            modalDelete.appendChild(buttonConfirmar);
+
+            const buttonNo = document.createElement('button');
+            buttonNo.setAttribute('class', 'buttonConfirmar');
+            buttonNo.innerHTML = 'NO'
+            modalDelete.appendChild(buttonNo);
+            nodehome.appendChild(modalDelete);
+          
+
+            buttonConfirmar.addEventListener('click', () => {
+              borrarPublicacion(publicacion.id);
+            })
+
+            buttonNo.addEventListener('click', () => {
+              navigateTo('/home');
+            })
           });
+
+
 
           //validaciones edit 
           const valideitorEdit = option.querySelector('.buttonEdit');
@@ -151,7 +180,9 @@ export function home(navigateTo) {
   });
 
   /*----------------------------------------------------*/
-
+  const botonPalta = document.createElement('button');
+  botonPalta.setAttribute('class', 'buttonPalta');
+  botonPalta.setAttribute('id', 'palta');
   const imagenPalta = document.createElement('img');
   imagenPalta.setAttribute('class', 'imagenPalta');
   imagenPalta.setAttribute('src', 'imagenes/paltamenu.png');

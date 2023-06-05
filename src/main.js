@@ -1,10 +1,11 @@
 import { landing } from './landing';
 import { singUp } from './singUp';
 import { welcome } from './welcome';
-import { login } from './login';
+import { login } from './components/login';
 import { error } from './error';
-import { home } from './home';
+import { home } from './components/home';
 import { modal } from './modal';
+import {getAuth, onAuthStateChanged } from "firebase/auth";
 // importacion de firebase
 
 const routes = [
@@ -67,5 +68,19 @@ window.onpopstate = () => {
 navigateTo(window.location.pathname || defaultRoute);
 
 
-
-
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log('me logie', user);
+    navigateTo('/home');
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    // ...
+  } else {
+    console.log('Sin logear', user);
+    navigateTo('/login');
+    // User is signed out
+    // ...
+  }
+});

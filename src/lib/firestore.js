@@ -2,7 +2,7 @@ import { collection, doc, setDoc, onSnapshot, deleteDoc, query, orderBy, updateD
 import { getAuth } from "firebase/auth";
 import { db, colRef } from './firebase';
 
-export async function saveTask(titulo, descripcion) {
+export async function saveTask(titulo, descripcion, timestamp) {
   console.log(titulo, descripcion);
 
   const auth = getAuth(); // Obtener la instancia de autenticación de Firebase
@@ -16,6 +16,7 @@ export async function saveTask(titulo, descripcion) {
       title: titulo,
       description: descripcion,
       like: 0,
+      timestamps: timestamp,
     });
 
     console.log('Document written with ID: ', postRef.id);
@@ -24,11 +25,12 @@ export async function saveTask(titulo, descripcion) {
   }
 }
 
+/*.collection("post")
+.orderBy("", "desc")*/
 
 
-const orderedQuery = query(colRef, orderBy('timestamp', 'desc'));
-export const postData = (callback) => onSnapshot(query(colRef), callback);
-
+const orderedQuery = query(colRef, orderBy('timestamps', 'desc'));
+export const postData = (callback) => onSnapshot(orderedQuery, callback);
 
 export async function borrarPublicacion(id) {
   try {
