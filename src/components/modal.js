@@ -1,4 +1,4 @@
-import { saveTask } from './lib/firestore';
+import { saveTask } from '../lib/firestore';
 import { header } from './contents';
 
 export function modal(navigateTo) {

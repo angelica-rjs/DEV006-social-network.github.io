@@ -1,10 +1,10 @@
-import { landing } from './landing';
-import { singUp } from './singUp';
-import { welcome } from './welcome';
+import { landing } from './components/landing';
+import { singUp } from './components/singUp';
+import { welcome } from './components/welcome';
 import { login } from './components/login';
-import { error } from './error';
+import { error } from './components/error';
 import { home } from './components/home';
-import { modal } from './modal';
+import { modal } from './components/modal';
 import {getAuth, onAuthStateChanged } from "firebase/auth";
 // importacion de firebase
 
@@ -79,7 +79,7 @@ onAuthStateChanged(auth, (user) => {
     // ...
   } else {
     console.log('Sin logear', user);
-    navigateTo('/login');
+    navigateTo('/');
     // User is signed out
     // ...
   }

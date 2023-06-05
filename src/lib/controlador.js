@@ -1,9 +1,11 @@
 import {
   getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  signInWithPopup, GoogleAuthProvider,
+  signInWithPopup, GoogleAuthProvider, signOut
 } from 'firebase/auth';
+
 import { app } from './firebase';
-import { async } from 'regenerator-runtime';
+
+
 
 // registrarse con correo y contraseña
 export async function registrar(email, password) {
@@ -88,16 +90,17 @@ export async function loginGoogle() {
     };
 }
 
-// Solo se puede singIn con Google?
 
-// export async function login() {
-//  const provider = new firebase.auth.GoogleAuthProvider();
-//  const auth = firebase.auth();
-//  try {
-//    const response = await auth.singInWithPopUp(provider);
-//    console.log(response);
-//    return response.user;
-//  } catch (error) {
-//    throw new ERROR(error);
-//  }
-// };
+
+
+export async function out(auth){
+
+  try{
+    await signOut(auth);
+    console.log('Dentro del try');
+  }
+   catch (error) {
+  console.log(error);
+} 
+}
+
