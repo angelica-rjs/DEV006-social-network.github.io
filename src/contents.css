@@ -219,7 +219,7 @@ small {
   background-color: #32324D;
   width: 100%;
   height: 10%;
-  position: relative;
+  position: fixed;
 
 }
 
@@ -271,8 +271,10 @@ small {
   height: 60%;
   border: solid #81Bab4 2px;
   border-radius: 10px;
-  margin: auto;
-  margin-top: 15%;
+  display:inline-block;
+  margin-top: 30%;
+  margin-bottom: 30%;
+  margin-left: 10%;
 }
 
 .divX {
@@ -341,7 +343,8 @@ small {
   flex-direction: column;
   margin: auto;
   margin-top: 5%;
-  background-color: #81Bab4;
+  margin-bottom: 10%;
+  background-color: #c4dcd9;
   width: 83%;
   height: 35%;
   border-radius: 15px;
@@ -353,8 +356,8 @@ small {
   height: 10%;
   width: 30%;
   border-radius: 50%;
-  border: #81Bab4;
-  background-color: #81Bab4;
+  border:#c4dcd9;
+  background-color: #c4dcd9;
   margin-left: 67%;
   margin-top: 2%;
   flex-direction: column;
@@ -362,7 +365,7 @@ small {
 
 /*---------Botones del contenedor post------*/
 .contenedorBotones {
-  background-color: #32324d;
+  background-color: #c4dcd9;
   justify-content: space-between;
   display: flex;
   flex-direction: column;
@@ -371,28 +374,32 @@ small {
 }
 
 .buttonDelete {
-  background-color: #0e3833;
-  
-  
-
+  background-color: #9fc7c5;
+  margin-bottom: 4%;
+  border-radius: 10px;
+  border: 0;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .buttonEdit {
-  background-color: #81Bab4;
+  background-color: #9fc7c5;
+  border-radius: 10px;
+  border: 0;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .imgDots {
   height: 100%;
   width: 30%;
-  background-color: #81Bab4;
+  background-color: #c4dcd9;
   border-radius: 50%;
-  border: #81Bab4;
+  border:#c4dcd9;
   margin-left: 75%;
 }
 
 .titlePublicacion {
   display: flex;
-  background-color: #81Bab4;
+  background-color: #c4dcd9;
   flex-direction: column;
   margin-left: 2%;
   margin-top: 2%;
@@ -403,43 +410,86 @@ small {
 
 .descriptionPublicacion {
   display: flex;
-  background-color: #81Bab4;
+  background-color:#c4dcd9;
   flex-direction: column;
   margin-left: 2%;
   margin-top: 2%;
   width: 95%;
   height: 50%;
-  overflow: auto;
+ /* overflow: auto;*/
 }
 
 .containerLike {
   display: flex;
   flex-direction: row;
-  background-color: #81Bab4;
-  height: 13%;
-  width: 20%;
+  background-color:#c4dcd9;
+  height: 8%;
+  width: 12%;
   margin-top: 2%;
-  margin-left: 76%;
+  margin-left: 80%;
+  margin-bottom: 3%;
 }
 
 .buttonLike {
   border: none;
-  background-color: #81Bab4;
-  height: 100%;
+  background-color: #c4dcd9;
   width: 60%;
 }
 
 .imgChef {
-  background-color: #81Bab4;
+  background-color: #c4dcd9;
   height: 100%;
   width: 100%;
 }
 
 .contador {
   border: none;
-  background-color: #81Bab4;
+  background-color: #c4dcd9;
+  margin-top: 11%;
   height: 100%;
   width: 40%;
   display: flex;
   align-items: end;
+}
+
+.modalDelete{
+  margin: auto;
+  background-color: #c4d8d6;
+  width: 83%;
+  height: 20%;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pModal{
+  background-color: #c4d8d6;
+  display: flex;
+  width: 100%;
+  height: 30%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  text-align: center;
+}
+
+.buttonConfirmar{
+  margin-right: 5%;
+  margin-left: 11%;
+  width: 30%;
+  height: 20%;
+  border-radius: 10px;
+  background-color: #9fc7c5;
+  border-radius: 10px;
+  border: 0;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.postData{
+  height: auto;  
+  display: inline-block; 
+  margin-bottom: 30% !important;
+  margin-top: 30%;
 }

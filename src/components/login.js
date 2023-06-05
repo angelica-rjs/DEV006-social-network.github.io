@@ -1,5 +1,5 @@
-import { mostrarLogo, buttonGoogle, botonIniciarSesion } from './contents';
-import { iniciar, loginGoogle } from './lib/controlador';
+import { mostrarLogo, buttonGoogle, botonIniciarSesion } from '../contents';
+import { iniciar, loginGoogle } from '../lib/controlador';
 
 export function login(navigateTo) {
   const nodelogin = document.createElement('div');
