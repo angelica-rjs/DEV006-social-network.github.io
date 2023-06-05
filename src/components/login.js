@@ -1,4 +1,4 @@
-import { mostrarLogo, buttonGoogle, botonIniciarSesion } from '../contents';
+import { mostrarLogo, buttonGoogle, botonIniciarSesion } from './contents';
 import { iniciar, loginGoogle } from '../lib/controlador';
 
 export function login(navigateTo) {

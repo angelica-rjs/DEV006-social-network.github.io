@@ -1,5 +1,5 @@
 import { mostrarLogo, botonRegistrarse, buttonGoogle } from './contents';
-import { registrar, registroGoogle } from './lib/controlador';
+import { registrar, registroGoogle } from '../lib/controlador';
 
 export function singUp(navigateTo) {
   const nodesingUp = document.createElement('div');

@@ -248,6 +248,7 @@ small {
 .buttonPalta {
   display: flex;
   margin: auto;
+  margin-left: 37%;
   width: 25%;
   height: 120%;
   transform: translateY(-50%);
@@ -492,4 +493,20 @@ small {
   display: inline-block; 
   margin-bottom: 30% !important;
   margin-top: 30%;
+}
+
+.logOut {
+border: #32324d solid 1px;
+width: 10%;
+height: 40%;
+display: flex;
+float: right;
+margin-top: 7%;
+margin-right: 5%;
+}
+
+.imaLogOut{
+  background-color: #32324D;
+ width: 100%;
+ height: 100%;
 }

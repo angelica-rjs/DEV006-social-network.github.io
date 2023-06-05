@@ -2,6 +2,7 @@ import { collection, doc, setDoc, onSnapshot, deleteDoc, query, orderBy, updateD
 import { getAuth } from "firebase/auth";
 import { db, colRef } from './firebase';
 
+
 export async function saveTask(titulo, descripcion, timestamp) {
   console.log(titulo, descripcion);
 
@@ -59,3 +60,4 @@ export async function dislikePublicacion(id) {
     console.error('Error al intentardar like', error);
   }
 }
+

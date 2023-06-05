@@ -1,10 +1,9 @@
 import { getAuth } from "firebase/auth";
-// import { getDocs, collection } from "firebase/firestore";
-// import { db } from './lib/firebase.js';
-import { header } from '../contents.js';
+import { header } from './contents.js';
 import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from '../lib/firestore.js';
-import { doc } from "firebase/firestore";
-import { modal } from "../modal.js";
+import { out } from "../lib/controlador.js";
+
+
 
 export function home(navigateTo) {
   
@@ -12,13 +11,10 @@ export function home(navigateTo) {
   const theHeader = header();
   nodehome.appendChild(theHeader);
 
-  const contenedorMenu = document.createElement('div');
-  contenedorMenu.setAttribute('class', 'contenedorMenu');
-
-  const botonPalta = document.createElement('button');
-  botonPalta.setAttribute('class', 'buttonPalta');
-  botonPalta.setAttribute('id', 'palta');
-
+  // current user
+  const auth = getAuth();
+  const user = auth.currentUser;
+  
   /* ------------------ DIV DE PUBLICACIONES ------------------*/
   postData((querySnapshot) => {
     nodehome.innerHTML = '';
@@ -33,9 +29,7 @@ export function home(navigateTo) {
       containerPost.setAttribute('class', 'containerPost');
       containerPost.setAttribute('id', 'containerPostid');
 
-      // current user
-      const auth = getAuth();
-      const user = auth.currentUser;
+      
 
       if (publicacion.data().userId === user.uid) {
         //boton 3 puntitus 
@@ -185,18 +179,41 @@ export function home(navigateTo) {
 
   /*----------------------------------------------------*/
 
+  const contenedorMenu = document.createElement('div');
+  contenedorMenu.setAttribute('class', 'contenedorMenu');
+
+  const botonPalta = document.createElement('button');
+  botonPalta.setAttribute('class', 'buttonPalta');
+  botonPalta.setAttribute('id', 'palta');
   const imagenPalta = document.createElement('img');
   imagenPalta.setAttribute('class', 'imagenPalta');
   imagenPalta.setAttribute('src', 'imagenes/paltamenu.png');
   botonPalta.appendChild(imagenPalta);
-  contenedorMenu.appendChild(botonPalta);
+  
 
+
+
+
+  const logOut = document.createElement('button');
+  logOut.setAttribute('class', 'logOut');
+  const imgLogOut = document.createElement('img')
+  imgLogOut.setAttribute('class', 'imaLogOut');
+  imgLogOut.setAttribute('src', 'imagenes/cerrar-sesion.png');
+  logOut.appendChild(imgLogOut);
+
+  contenedorMenu.appendChild(logOut);
+  contenedorMenu.appendChild(botonPalta);
   nodehome.appendChild(contenedorMenu);
 
   botonPalta.addEventListener('click', () => {
     // console.log('estamos en el addEvent');
     navigateTo('/post');
   });
+
+  logOut.addEventListener('click', () =>{
+    const auth = getAuth();
+    out(auth)
+  })
 
   return nodehome;
 }
