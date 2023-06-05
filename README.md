@@ -1,4 +1,4 @@
-# KETOLIFE ![LogoPaltaOlografica60](https://github.com/Liliancardenas/DEV006-social-network.github.io/assets/127140327/a2e3caed-a250-400e-b168-35252952f03c)
+# KETOLIFE 
 
 ## Índice
 
@@ -39,7 +39,7 @@ La red social Keto life esta pensada en todos lo usuarios que quieran compartir 
 3. Navegar por el feed de la App, y poder visualizar los post de otros usuarios.
 4. Podrá indicar que le gustó una publicación a través de boton LIKE (click en sombrero de chef) 
 ![chef20](https://github.com/Liliancardenas/DEV006-social-network.github.io/assets/127140327/d9e2dd02-bbce-4e5b-a514-8f558574936b)
-5. Podrá compartir una publicación (mediante in click en el icono de palta). 🥑
+5. Podrá compartir una publicación (mediante in click en el icono de palta) ![LogoPaltaOlografica60](https://github.com/Liliancardenas/DEV006-social-network.github.io/assets/127140327/5ec6f4da-ba10-4da6-a0dd-31e2fdc1b6d5)
 6. Podrá eliminar su publicación. 
 ***
 
