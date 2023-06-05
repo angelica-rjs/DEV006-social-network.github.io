@@ -475,6 +475,16 @@ small {
   margin-bottom: 5%;
   text-align: center;
 }
+.pCerrarSesion{
+  background-color: #c4d8d6;
+  display: flex;
+  width: 80%;
+  height: 30%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 9%;
+  text-align: center;
+}
 
 .buttonConfirmar{
   margin-right: 5%;

@@ -210,10 +210,37 @@ export function home(navigateTo) {
     navigateTo('/post');
   });
 
-  logOut.addEventListener('click', () =>{
-    const auth = getAuth();
-    out(auth)
+  logOut.addEventListener('click', () => {
+    const modalDelete = document.createElement('div');
+    modalDelete.setAttribute('class', 'modalDelete');
+  
+    const confirmation = document.createElement('p');
+    confirmation.innerHTML = '¿Esta seguro que desea cerrar sesión?';
+    confirmation.setAttribute('class', 'pCerrarSesion');
+    modalDelete.appendChild(confirmation);
+  
+    const buttonConfirmar = document.createElement('button');
+    buttonConfirmar.setAttribute('class', 'buttonConfirmar');
+    buttonConfirmar.innerHTML = 'SI'
+    modalDelete.appendChild(buttonConfirmar);
+  
+    const buttonNo = document.createElement('button');
+    buttonNo.setAttribute('class', 'buttonConfirmar');
+    buttonNo.innerHTML = 'NO'
+    modalDelete.appendChild(buttonNo);
+    nodehome.appendChild(modalDelete);
+
+
+    buttonConfirmar.addEventListener('click', () => {
+      const auth = getAuth();
+      out(auth)
+    })
+     
+    buttonNo.addEventListener('click', () => {
+      navigateTo('/home');
+    })
   })
 
   return nodehome;
 }
+
