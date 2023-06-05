@@ -1,12 +1,13 @@
 import { getAuth } from "firebase/auth";
 // import { getDocs, collection } from "firebase/firestore";
 // import { db } from './lib/firebase.js';
-import { header } from './contents.js';
-import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from './lib/firestore.js';
+import { header } from '../contents.js';
+import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from '../lib/firestore.js';
 import { doc } from "firebase/firestore";
-import { modal } from "./modal.js";
+import { modal } from "../modal.js";
 
 export function home(navigateTo) {
+  
   const nodehome = document.createElement('div');
   const theHeader = header();
   nodehome.appendChild(theHeader);
