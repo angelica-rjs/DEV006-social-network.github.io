@@ -1,22 +1,20 @@
 import { getAuth } from "firebase/auth";
-// import { getDocs, collection } from "firebase/firestore";
-// import { db } from './lib/firebase.js';
 import { header } from './contents.js';
-import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from './lib/firestore.js';
-import { doc } from "firebase/firestore";
+import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from '../lib/firestore.js';
+import { out } from "../lib/controlador.js";
+
+
 
 export function home(navigateTo) {
+  
   const nodehome = document.createElement('div');
   const theHeader = header();
   nodehome.appendChild(theHeader);
 
-  const contenedorMenu = document.createElement('div');
-  contenedorMenu.setAttribute('class', 'contenedorMenu');
-
-  const botonPalta = document.createElement('button');
-  botonPalta.setAttribute('class', 'buttonPalta');
-  botonPalta.setAttribute('id', 'palta');
-
+  // current user
+  const auth = getAuth();
+  const user = auth.currentUser;
+  
   /* ------------------ DIV DE PUBLICACIONES ------------------*/
   postData((querySnapshot) => {
     nodehome.innerHTML = '';
@@ -31,69 +29,109 @@ export function home(navigateTo) {
       containerPost.setAttribute('class', 'containerPost');
       containerPost.setAttribute('id', 'containerPostid');
 
-      // current user
-      const auth = getAuth();
-      const user = auth.currentUser;
+      
 
       if (publicacion.data().userId === user.uid) {
-        // console.log(` user.id${user.uid}`);
-        // console.log(` user.id${publicacion.data().userId}`);
+        //boton 3 puntitus 
         const option = document.createElement('button');
-
-
         option.setAttribute('class', 'option');
         option.innerHTML = '<img class="imgDots" src="./imagenes/option.png" >';
         containerPost.appendChild(option);
 
+        //contenedor para los botones 
         const contenedorBotones = document.createElement('div');
         contenedorBotones.setAttribute('class', 'contenedorBotones');
         contenedorBotones.setAttribute('style', 'display:none');
         option.appendChild(contenedorBotones);
 
+        //boton borrar
         const buttonDelete = document.createElement('button');
         buttonDelete.setAttribute('class', 'buttonDelete');
         buttonDelete.innerHTML = 'borrar';
-        // buttonDelete.setAttribute('style', 'display:none');
+        buttonDelete.setAttribute('style', 'display:none');
         contenedorBotones.appendChild(buttonDelete);
 
+
+
+        //boton editar        
         const buttonEdit = document.createElement('button');
         buttonEdit.setAttribute('class', 'buttonEdit');
         buttonEdit.innerHTML = 'editar';
-        // buttonEdit.setAttribute('style', 'display:none');
+        buttonEdit.setAttribute('style', 'display:none');
         contenedorBotones.appendChild(buttonEdit);
 
+
         option.addEventListener('click', () => {
+          console.log ("estoy en el option")
+
+          //valida el contenedor de los botones
           const valideitorBotones = option.querySelector('.contenedorBotones');
           if (valideitorBotones.style.display === 'none') {
             valideitorBotones.style.display = 'block';
           } else {
             valideitorBotones.style.display = 'none';
           }
-          /*const valideitorBotonDelete = option.querySelector('.buttonDelete');
+          buttonEdit.addEventListener('click', () => {
+            console.log("estoy en edit")
+            valideitorBotones.style.display = 'block';
+          });
+        });
+
+        //validaciones delete
+        const valideitorBotonDelete = option.querySelector('.buttonDelete');
           if (valideitorBotonDelete.style.display === 'none') {
             valideitorBotonDelete.style.display = 'block';
           } else {
             valideitorBotonDelete.style.display = 'none';
-          }*/
+          }
+          //delete 
           buttonDelete.addEventListener('click', () => {
-            // console.log(`tenemosid?(JSON.stringifi()${postid})`);
-            borrarPublicacion(publicacion.id);
+            const modalDelete = document.createElement('div');
+            modalDelete.setAttribute('class', 'modalDelete');
+       
+
+            const confirmation = document.createElement('p');
+            confirmation.innerHTML = '¿Esta seguro que desea eliminar la publicación?';
+            confirmation.setAttribute('class', 'pModal');
+            modalDelete.appendChild(confirmation);
+
+            const buttonConfirmar = document.createElement('button');
+            buttonConfirmar.setAttribute('class', 'buttonConfirmar');
+            buttonConfirmar.innerHTML = 'SI'
+            modalDelete.appendChild(buttonConfirmar);
+
+            const buttonNo = document.createElement('button');
+            buttonNo.setAttribute('class', 'buttonConfirmar');
+            buttonNo.innerHTML = 'NO'
+            modalDelete.appendChild(buttonNo);
+            nodehome.appendChild(modalDelete);
+          
+
+            buttonConfirmar.addEventListener('click', () => {
+              borrarPublicacion(publicacion.id);
+            })
+
+            buttonNo.addEventListener('click', () => {
+              navigateTo('/home');
+            })
           });
-          /*const valideitorEdit = option.querySelector('.buttonEdit');
+
+
+
+          //validaciones edit 
+          const valideitorEdit = option.querySelector('.buttonEdit');
           if (valideitorEdit.style.display === 'none') {
             valideitorEdit.style.display = 'block';
           } else {
             valideitorEdit.style.display = 'none';
-          }*/
-          buttonEdit.addEventListener('click', () => {
-            // borrarPublicacion(publicacion.id);
-          });
-        });
+          }
+         
       }
+
+
       const titlePublicacion = document.createElement('h2');
       titlePublicacion.setAttribute('class', 'titlePublicacion');
       titlePublicacion.innerHTML = publicacion.data().title;
-      // console.log(`post fuera de todo${JSON.stringify(publicacion)}`);
 
       const descriptionPublicacion = document.createElement('p');
       descriptionPublicacion.setAttribute('class', 'descriptionPublicacion');
@@ -107,11 +145,11 @@ export function home(navigateTo) {
 
       const buttonLike = document.createElement('button');
       buttonLike.setAttribute('class', 'buttonLike');
-      buttonLike.setAttribute('id', 'buttonLikeid1');
+      buttonLike.setAttribute('id', `${publicacion.data().id}`);
 
       buttonLike.innerHTML = '<img class="imgChef" src="./imagenes/chef.png" >';
 
-      let isLiked = localStorage.getItem('isLiked') === 'true';
+      let isLiked = localStorage.getItem(`isLiked_${publicacion.id}`) === 'true';
 
       buttonLike.addEventListener('click', () => {
         if (isLiked) {
@@ -122,9 +160,8 @@ export function home(navigateTo) {
           isLiked = true;
         }
 
-        localStorage.setItem('isLiked', isLiked.toString());
+        localStorage.setItem(`isLiked_${publicacion.id}`, isLiked.toString());
       });
-
 
       containerLike.appendChild(buttonLike);
       containerLike.appendChild(contador);
@@ -142,12 +179,30 @@ export function home(navigateTo) {
 
   /*----------------------------------------------------*/
 
+  const contenedorMenu = document.createElement('div');
+  contenedorMenu.setAttribute('class', 'contenedorMenu');
+
+  const botonPalta = document.createElement('button');
+  botonPalta.setAttribute('class', 'buttonPalta');
+  botonPalta.setAttribute('id', 'palta');
   const imagenPalta = document.createElement('img');
   imagenPalta.setAttribute('class', 'imagenPalta');
   imagenPalta.setAttribute('src', 'imagenes/paltamenu.png');
   botonPalta.appendChild(imagenPalta);
-  contenedorMenu.appendChild(botonPalta);
+  
 
+
+
+
+  const logOut = document.createElement('button');
+  logOut.setAttribute('class', 'logOut');
+  const imgLogOut = document.createElement('img')
+  imgLogOut.setAttribute('class', 'imaLogOut');
+  imgLogOut.setAttribute('src', 'imagenes/cerrar-sesion.png');
+  logOut.appendChild(imgLogOut);
+
+  contenedorMenu.appendChild(logOut);
+  contenedorMenu.appendChild(botonPalta);
   nodehome.appendChild(contenedorMenu);
 
   botonPalta.addEventListener('click', () => {
@@ -155,5 +210,37 @@ export function home(navigateTo) {
     navigateTo('/post');
   });
 
+  logOut.addEventListener('click', () => {
+    const modalDelete = document.createElement('div');
+    modalDelete.setAttribute('class', 'modalDelete');
+  
+    const confirmation = document.createElement('p');
+    confirmation.innerHTML = '¿Esta seguro que desea cerrar sesión?';
+    confirmation.setAttribute('class', 'pCerrarSesion');
+    modalDelete.appendChild(confirmation);
+  
+    const buttonConfirmar = document.createElement('button');
+    buttonConfirmar.setAttribute('class', 'buttonConfirmar');
+    buttonConfirmar.innerHTML = 'SI'
+    modalDelete.appendChild(buttonConfirmar);
+  
+    const buttonNo = document.createElement('button');
+    buttonNo.setAttribute('class', 'buttonConfirmar');
+    buttonNo.innerHTML = 'NO'
+    modalDelete.appendChild(buttonNo);
+    nodehome.appendChild(modalDelete);
+
+
+    buttonConfirmar.addEventListener('click', () => {
+      const auth = getAuth();
+      out(auth)
+    })
+     
+    buttonNo.addEventListener('click', () => {
+      navigateTo('/home');
+    })
+  })
+
   return nodehome;
 }
+
