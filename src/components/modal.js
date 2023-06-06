@@ -1,4 +1,4 @@
-import { saveTask } from './lib/firestore';
+import { saveTask } from '../lib/firestore';
 import { header } from './contents';
 
 export function modal(navigateTo) {
@@ -73,9 +73,16 @@ export function modal(navigateTo) {
     console.log(titulo);
     let descripcion = document.getElementById('inputDescriptionId').value;
     console.log(descripcion);
+    //abtener la fecha y hora para order
+    const currentDate = new Date();
+    const timestamp = currentDate.toISOString();
+    if (titulo !== "" && descripcion !== ""){
     navigateTo('/home');
-    saveTask(titulo, descripcion);
-
+    saveTask(titulo, descripcion, timestamp);
+    } else {
+      alert("Los campos son requeridos")
+    }
+    
 
   });
   return cuepoModal;

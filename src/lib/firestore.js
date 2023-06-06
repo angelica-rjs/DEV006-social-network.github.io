@@ -1,8 +1,9 @@
-import { collection, doc, setDoc, onSnapshot, deleteDoc, query, orderBy } from "firebase/firestore";
+import { collection, doc, setDoc, onSnapshot, deleteDoc, query, orderBy, updateDoc, increment } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { db, colRef } from './firebase';
 
-export async function saveTask(titulo, descripcion) {
+
+export async function saveTask(titulo, descripcion, timestamp) {
   console.log(titulo, descripcion);
 
   const auth = getAuth(); // Obtener la instancia de autenticación de Firebase
@@ -15,6 +16,8 @@ export async function saveTask(titulo, descripcion) {
       userId: user.uid, // Agregar el ID del usuario autenticado
       title: titulo,
       description: descripcion,
+      like: 0,
+      timestamps: timestamp,
     });
 
     console.log('Document written with ID: ', postRef.id);
@@ -23,26 +26,12 @@ export async function saveTask(titulo, descripcion) {
   }
 }
 
-/*export function obtenerData2(callback) {
-  onSnapshot(collection(db, 'post'), (snapshot) => {
-    const posts = [];
-    snapshot.forEach((doc) => {
-      posts.push(doc.data());
-      console.log(`doc.id${doc.id}`);
-    });
-    callback(posts);
-  });
-}*/
+/*.collection("post")
+.orderBy("", "desc")*/
 
-const orderedQuery = query(colRef, orderBy('timestamp', 'desc'));
-export const postData = (callback) => onSnapshot(query(colRef), callback);
 
-/*export async function borrarPublicacion(id) {
-  // await db.collection('post').doc(id).delete();
-  await deleteDoc(doc(db, 'post', id));
-  // const borrarEnFirebase = await collection(db, 'post').doc(id).deleteDoc();
-  // console.log(`borrar en firebase${borrarEnFirebase}`);
-}*/
+const orderedQuery = query(colRef, orderBy('timestamps', 'desc'));
+export const postData = (callback) => onSnapshot(orderedQuery, callback);
 
 export async function borrarPublicacion(id) {
   try {
@@ -53,3 +42,22 @@ export async function borrarPublicacion(id) {
     console.error('Error al intentar borrar la publicación en Firestore:', error);
   }
 }
+
+export async function likePublicacion(id) {
+  try {
+    const docRef = doc(db, 'post', id);
+    await updateDoc(docRef, { like: increment(1) });
+  } catch (error) {
+    console.error('Error al intentardar like', error);
+  }
+}
+
+export async function dislikePublicacion(id) {
+  try {
+    const docRef = doc(db, 'post', id);
+    await updateDoc(docRef, { like: increment(-1) });
+  } catch (error) {
+    console.error('Error al intentardar like', error);
+  }
+}
+
