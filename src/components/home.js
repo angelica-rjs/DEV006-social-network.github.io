@@ -1,6 +1,8 @@
 import { getAuth } from "firebase/auth";
-import { header } from '../contents.js';
+import { header } from './contents.js';
 import { borrarPublicacion, likePublicacion, dislikePublicacion, postData } from '../lib/firestore.js';
+import { out } from "../lib/controlador.js";
+
 
 
 export function home(navigateTo) {
@@ -9,14 +11,10 @@ export function home(navigateTo) {
   const theHeader = header();
   nodehome.appendChild(theHeader);
 
-  const contenedorMenu = document.createElement('div');
-  contenedorMenu.setAttribute('class', 'contenedorMenu');
-
-   // current user
-   const auth = getAuth();
-   const user = auth.currentUser;
+  // current user
+  const auth = getAuth();
+  const user = auth.currentUser;
   
-
   /* ------------------ DIV DE PUBLICACIONES ------------------*/
   postData((querySnapshot) => {
     nodehome.innerHTML = '';
@@ -31,7 +29,7 @@ export function home(navigateTo) {
       containerPost.setAttribute('class', 'containerPost');
       containerPost.setAttribute('id', 'containerPostid');
 
-     
+      
 
       if (publicacion.data().userId === user.uid) {
         //boton 3 puntitus 
@@ -180,6 +178,10 @@ export function home(navigateTo) {
   });
 
   /*----------------------------------------------------*/
+
+  const contenedorMenu = document.createElement('div');
+  contenedorMenu.setAttribute('class', 'contenedorMenu');
+
   const botonPalta = document.createElement('button');
   botonPalta.setAttribute('class', 'buttonPalta');
   botonPalta.setAttribute('id', 'palta');
@@ -187,8 +189,20 @@ export function home(navigateTo) {
   imagenPalta.setAttribute('class', 'imagenPalta');
   imagenPalta.setAttribute('src', 'imagenes/paltamenu.png');
   botonPalta.appendChild(imagenPalta);
-  contenedorMenu.appendChild(botonPalta);
+  
 
+
+
+
+  const logOut = document.createElement('button');
+  logOut.setAttribute('class', 'logOut');
+  const imgLogOut = document.createElement('img')
+  imgLogOut.setAttribute('class', 'imaLogOut');
+  imgLogOut.setAttribute('src', 'imagenes/cerrar-sesion.png');
+  logOut.appendChild(imgLogOut);
+
+  contenedorMenu.appendChild(logOut);
+  contenedorMenu.appendChild(botonPalta);
   nodehome.appendChild(contenedorMenu);
 
   botonPalta.addEventListener('click', () => {
@@ -196,5 +210,37 @@ export function home(navigateTo) {
     navigateTo('/post');
   });
 
+  logOut.addEventListener('click', () => {
+    const modalDelete = document.createElement('div');
+    modalDelete.setAttribute('class', 'modalDelete');
+  
+    const confirmation = document.createElement('p');
+    confirmation.innerHTML = '¿Esta seguro que desea cerrar sesión?';
+    confirmation.setAttribute('class', 'pCerrarSesion');
+    modalDelete.appendChild(confirmation);
+  
+    const buttonConfirmar = document.createElement('button');
+    buttonConfirmar.setAttribute('class', 'buttonConfirmar');
+    buttonConfirmar.innerHTML = 'SI'
+    modalDelete.appendChild(buttonConfirmar);
+  
+    const buttonNo = document.createElement('button');
+    buttonNo.setAttribute('class', 'buttonConfirmar');
+    buttonNo.innerHTML = 'NO'
+    modalDelete.appendChild(buttonNo);
+    nodehome.appendChild(modalDelete);
+
+
+    buttonConfirmar.addEventListener('click', () => {
+      const auth = getAuth();
+      out(auth)
+    })
+     
+    buttonNo.addEventListener('click', () => {
+      navigateTo('/home');
+    })
+  })
+
   return nodehome;
 }
+
