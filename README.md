@@ -9,7 +9,7 @@
 * [5. Historias de usuario](#5-historias-de-usuario-)
 * [6. Prototipo de baja fidelidad](#6-prototipo-de-baja-fidelidad)
 * [7. Prototipo de alta fidelidad](#7-Prototipo-de-alta-fidelidad)
-* [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)
+* [8. Colaboradoras](#8-colaboradoras)
 
 ## 1. Presentación
 
